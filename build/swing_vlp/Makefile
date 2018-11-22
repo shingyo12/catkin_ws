@@ -453,6 +453,21 @@ usb_imu/fast:
 .PHONY : usb_imu/fast
 
 # Convenience name for target.
+swing_vlp/CMakeFiles/swing_core.dir/rule:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 swing_vlp/CMakeFiles/swing_core.dir/rule
+.PHONY : swing_vlp/CMakeFiles/swing_core.dir/rule
+
+# Convenience name for target.
+swing_core: swing_vlp/CMakeFiles/swing_core.dir/rule
+
+.PHONY : swing_core
+
+# fast build rule for target.
+swing_core/fast:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/swing_core.dir/build.make swing_vlp/CMakeFiles/swing_core.dir/build
+.PHONY : swing_core/fast
+
+# Convenience name for target.
 swing_vlp/CMakeFiles/vlp_pcd_imu.dir/rule:
 	cd /home/nvidia/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 swing_vlp/CMakeFiles/vlp_pcd_imu.dir/rule
 .PHONY : swing_vlp/CMakeFiles/vlp_pcd_imu.dir/rule
@@ -914,6 +929,33 @@ src/sub_pcl_visualizer.cpp.s:
 	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/sub_pcl_visualizer.dir/build.make swing_vlp/CMakeFiles/sub_pcl_visualizer.dir/src/sub_pcl_visualizer.cpp.s
 .PHONY : src/sub_pcl_visualizer.cpp.s
 
+src/swing_core.o: src/swing_core.cpp.o
+
+.PHONY : src/swing_core.o
+
+# target to build an object file
+src/swing_core.cpp.o:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/swing_core.dir/build.make swing_vlp/CMakeFiles/swing_core.dir/src/swing_core.cpp.o
+.PHONY : src/swing_core.cpp.o
+
+src/swing_core.i: src/swing_core.cpp.i
+
+.PHONY : src/swing_core.i
+
+# target to preprocess a source file
+src/swing_core.cpp.i:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/swing_core.dir/build.make swing_vlp/CMakeFiles/swing_core.dir/src/swing_core.cpp.i
+.PHONY : src/swing_core.cpp.i
+
+src/swing_core.s: src/swing_core.cpp.s
+
+.PHONY : src/swing_core.s
+
+# target to generate assembly for a file
+src/swing_core.cpp.s:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/swing_core.dir/build.make swing_vlp/CMakeFiles/swing_core.dir/src/swing_core.cpp.s
+.PHONY : src/swing_core.cpp.s
+
 src/usb_cycle.o: src/usb_cycle.cpp.o
 
 .PHONY : src/usb_cycle.o
@@ -1081,6 +1123,7 @@ help:
 	@echo "... install/local"
 	@echo "... map_make"
 	@echo "... usb_imu"
+	@echo "... swing_core"
 	@echo "... vlp_pcd_imu"
 	@echo "... vlp_gpu"
 	@echo "... src/gpu/vlp_gpu.o"
@@ -1131,6 +1174,9 @@ help:
 	@echo "... src/sub_pcl_visualizer.o"
 	@echo "... src/sub_pcl_visualizer.i"
 	@echo "... src/sub_pcl_visualizer.s"
+	@echo "... src/swing_core.o"
+	@echo "... src/swing_core.i"
+	@echo "... src/swing_core.s"
 	@echo "... src/usb_cycle.o"
 	@echo "... src/usb_cycle.i"
 	@echo "... src/usb_cycle.s"

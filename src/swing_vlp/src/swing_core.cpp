@@ -14,7 +14,7 @@ class TeleopJoy{
 		ros::NodeHandle nh;
     		int rec_start, rec_stop;
     		int ang_boost, init_pos;
-    		int rot_bias, flx_ang;
+    		int rot_bias, flx_bias;
     		ros::Publisher  cmd_pub_;
     		ros::Subscriber joy_sub_;
 };
@@ -39,7 +39,7 @@ TeleopJoy::TeleopJoy():
 
 	//subsucriber,use template
         //this pointa is object pointa
-	joy_sub_ = nh.subscribe<sensor_msgs::Joy>("joy", 10, &TeleopTurtle::joyCallback, this);
+	joy_sub_ = nh.subscribe<sensor_msgs::Joy>("joy", 10, &TeleopJoy::joyCallback, this);
 	cmd_pub_ = nh.advertise<std_msgs::Int8MultiArray>("cmd_ctrl", 1);
 }
 
@@ -53,43 +53,50 @@ void TeleopJoy::joyCallback(const sensor_msgs::Joy::ConstPtr& joy){
 	        //[5]->flx_pos
 	cmd_ctrl.data.resize(6);
 	//button
-	if(joy->buttons[rec_start] > 0)
-		cmd_ctrl.data[0] = 1; 
-	else
+	if(joy->buttons[rec_start] > 0){
+		//std::cout<<"rec_start"<<std::endl;
+		cmd_ctrl.data[0] = 1;
+		//std::cout<<"[0]"<<cmd_ctrl.data[0]<<std::endl;
+	}else{
 		cmd_ctrl.data[0] = 0;
-
-	if(joy->buttons[rec_stop] > 0)
+	}
+	if(joy->buttons[rec_stop] > 0){
+		//std::cout<<"rec_stop"<<std::endl;
 		cmd_ctrl.data[1] = 1;
-	else
+	}else{
 		cmd_ctrl.data[1] = 0;
-
-	if(joy->buttons[ang_boost] > 0)
+	}
+	if(joy->buttons[ang_boost] > 0){
+		//std::cout<<"ang_boost"<<std::endl;
 		cmd_ctrl.data[2] = 1;
-	else
+	}else{
 		cmd_ctrl.data[2] = 0;
-
-	if(joy->buttons[init_pos] > 0)
+	}
+	if(joy->buttons[init_pos] > 0){
+		//std::cout<<"init_pos"<<std::endl;
 		cmd_ctrl.data[3] = 1;
-	else
+	}else{
 		cmd_ctrl.data[3] = 0;
-
-	//axis
-	if(joy->buttons[rot_bias] >= 1)
+	}
+	//axes
+	if(joy->axes[rot_bias] > 0){
 		cmd_ctrl.data[4] = 1;
-	else if(joy->buttons[rot_bias] <= -1)
+	}else if(joy->axes[rot_bias] < 0){
 		cmd_ctrl.data[4] = -1;
-	else
+	}else{
 		cmd_ctrl.data[4] = 0;
-
-	if(joy->buttons[flx_bias] >= 1)
+	}
+	if(joy->axes[flx_bias] > 0){
 		cmd_ctrl.data[5] = 1;
-	else if(joy->buttons[flx_bias] <= -1)
+	}else if(joy->axes[flx_bias] < 0){
 		cmd_ctrl.data[5] = -1;
-	else
+	}else{
 		cmd_ctrl.data[5] = 0;
-	
-	ROS_INFO_STREAM("(" << joy->axes[vel_linear] << " " << joy->axes[vel_angular] << ")");
-	vel_pub_.publish(twist);
+	}
+	std::cout<<"[0]"<<(int)cmd_ctrl.data[0]<<" [1]"<<(int)cmd_ctrl.data[1]<<" [2]"<<(int)cmd_ctrl.data[2]
+		 <<" [3]"<<(int)cmd_ctrl.data[3]<<" [4]"<<(int)cmd_ctrl.data[4]<<" [5]"<<(int)cmd_ctrl.data[5]<<std::endl;
+	//printf("[0] %d\n",cmd_ctrl.data[0]);
+	cmd_pub_.publish(cmd_ctrl);
 }
 
 int main(int argc, char** argv){

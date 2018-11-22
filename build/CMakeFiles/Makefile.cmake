@@ -632,6 +632,7 @@ set(CMAKE_DEPEND_INFO_FILES
   "swing_vlp/CMakeFiles/manual_vgf.dir/DependInfo.cmake"
   "swing_vlp/CMakeFiles/map_make.dir/DependInfo.cmake"
   "swing_vlp/CMakeFiles/usb_imu.dir/DependInfo.cmake"
+  "swing_vlp/CMakeFiles/swing_core.dir/DependInfo.cmake"
   "swing_vlp/CMakeFiles/vlp_pcd_imu.dir/DependInfo.cmake"
   "swing_vlp/CMakeFiles/vlp_gpu.dir/DependInfo.cmake"
   "ros_vlp/CMakeFiles/map_make_mm.dir/DependInfo.cmake"

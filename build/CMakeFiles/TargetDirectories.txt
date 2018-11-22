@@ -156,6 +156,7 @@
 /home/nvidia/catkin_ws/build/swing_vlp/CMakeFiles/install/local.dir
 /home/nvidia/catkin_ws/build/swing_vlp/CMakeFiles/map_make.dir
 /home/nvidia/catkin_ws/build/swing_vlp/CMakeFiles/usb_imu.dir
+/home/nvidia/catkin_ws/build/swing_vlp/CMakeFiles/swing_core.dir
 /home/nvidia/catkin_ws/build/swing_vlp/CMakeFiles/vlp_pcd_imu.dir
 /home/nvidia/catkin_ws/build/swing_vlp/CMakeFiles/vlp_gpu.dir
 /home/nvidia/catkin_ws/build/ros_vlp/CMakeFiles/install/strip.dir

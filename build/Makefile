@@ -1585,6 +1585,19 @@ usb_imu/fast:
 .PHONY : usb_imu/fast
 
 #=============================================================================
+# Target rules for targets named swing_core
+
+# Build rule for target.
+swing_core: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 swing_core
+.PHONY : swing_core
+
+# fast build rule for target.
+swing_core/fast:
+	$(MAKE) -f swing_vlp/CMakeFiles/swing_core.dir/build.make swing_vlp/CMakeFiles/swing_core.dir/build
+.PHONY : swing_core/fast
+
+#=============================================================================
 # Target rules for targets named vlp_pcd_imu
 
 # Build rule for target.
@@ -3448,6 +3461,7 @@ help:
 	@echo "... manual_vgf"
 	@echo "... map_make"
 	@echo "... usb_imu"
+	@echo "... swing_core"
 	@echo "... vlp_pcd_imu"
 	@echo "... vlp_gpu"
 	@echo "... map_make_mm"
