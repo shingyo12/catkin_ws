@@ -1,0 +1,2 @@
+emcip_test:ros_vlp:sample:swing_vlp:ublox:ublox_gps:ublox_msgs:ublox_serialization
+-DCATKIN_DEVEL_PREFIX=/home/nvidia/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/nvidia/catkin_ws/install -G Unix Makefiles

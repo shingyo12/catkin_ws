@@ -1,0 +1,14 @@
+#How to run (1)
+move to ~/catkin_ws
+ roscore
+ rosrun ros_vlp usb_cucle
+ rosrun ros_vlp vlp-pcd
+ rosrun ros_vlp sub_pcl (<-this is option)
+ rosrun ros_vlp sub_pcl_visualizer
+ rosrun ros_vlp sub_pcd_stddev
+ rosrun ros_vlp pcd_record
+ rqt_graph (<-this is option)
+
+#How to run (2)
+move to ~/catkin_ws
+ roslaunch ros_vlp chat.launch

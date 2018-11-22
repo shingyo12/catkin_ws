@@ -1,0 +1,16 @@
+# http://ros.org/doc/groovy/api/catkin/html/user_guide/supposed.html
+cmake_minimum_required(VERSION 2.8.3)
+project(spacenav_node)
+
+# Load catkin and all dependencies required for this package
+set(CATKIN_DEPS roscpp geometry_msgs sensor_msgs)
+set(ROSDEP_DEPS libspacenav-dev spacenavd)
+find_package(catkin REQUIRED ${CATKIN_DEPS})
+catkin_package(
+  DEPENDS ${CATKIN_DEPS} ${ROSDEP_DEPS}
+  #INCLUDE_DIRS include
+  LIBRARIES ${PROJECT_NAME})
+
+include_directories(${catkin_INCLUDE_DIRS})
+add_executable(spacenav_node src/spacenav_node.cpp)
+target_link_libraries (spacenav_node spnav X11 ${catkin_LIBRARIES})

@@ -1,0 +1,30 @@
+#include <ros/ros.h>
+#include <std_srvs/Empty.h>
+#include <std_msgs/Int8.h>
+
+bool serviceCallBack(std_srvs::Empty::Request &req, std_srvs::Empty::Response &resp)
+{
+	ROS_INFO_STREAM("Recieve Request");
+	return true;
+}
+
+void subscribeCallback(const std_msgs::Int8& msg)
+{
+	ROS_INFO_STREAM(msg.data);
+}
+
+int main(int argc, char **argv)
+{
+	ros::init(argc,argv,"srv_test");
+	ros::NodeHandle nh;
+	ros::ServiceServer srv = nh.advertiseService("gps_data",&serviceCallBack);
+	//ros::Subscriber sub = nh.subscribe("sub_test";1.&subscribeCallback);
+	
+	ROS_INFO_STREAM("Server ready");
+	while(ros::ok()){
+		ROS_INFO_STREAM("while roop");
+		sleep(1);
+		
+	}
+	
+}

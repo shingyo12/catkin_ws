@@ -1,0 +1,10 @@
+<launch>
+		<node pkg="ros_vlp" name="usb_cycle" type="usb_cycle"/>
+		<node pkg="ros_vlp" name="usb_imu" type="usb_imu"/>
+		<node pkg="ros_vlp" name="vlp_pcd_imu" type="vlp_pcd_imu"/>
+		<node pkg="ros_vlp" name="sub_pcl_visualizer" type="sub_pcl_visualizer"/>
+		<node pkg="usb_gps" name="usb_gps" type="usb_gps"/>
+	<!--	<node pkg="ros_vlp" name="rec_pcd_gps" type="rec_pcd_gps"/> -->
+	<!--	<node pkg="ros_vlp" name="sub_icp" type="sub_icp"/> -->
+	<!--	<node pkg="ros_vlp" name="sub_aln_visualizer" type="sub_aln_visualizer"/> -->
+</launch>

@@ -1,0 +1,88 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <fstream> 
+#include <math.h>
+#include <unistd.h>
+
+#include <ros/ros.h>
+#include <std_msgs/Float64.h>
+#include <std_srvs/Empty.h>
+#include <geometry_msgs/Pose.h>
+#include <sensor_msgs/PointCloud2.h>
+#include <pcl_ros/point_cloud.h>
+#include <pcl_conversions/pcl_conversions.h>
+
+#include <pcl/point_cloud.h>
+#include <pcl/point_types.h>
+#include <pcl/io/vlp_grabber.h>
+#include <pcl/console/parse.h>
+#include <pcl/visualization/pcl_visualizer.h>
+#include <pcl/io/pcd_io.h>
+
+#define NoM 10 //Number of Measurement (rotational number of laser element in LIDAR)
+
+sensor_msgs::PointCloud2 PointCloud;
+typedef pcl::PointXYZI PointType;
+//pcl::PointCloud<PointType> trcloud;
+
+pcl::PointCloud<PointType>::Ptr trcloud2(new pcl::PointCloud<PointType>);
+pcl::PointCloud<PointType>::Ptr push_cloud(new pcl::PointCloud<PointType>);
+pcl::PointCloud<PointType>::Ptr moved_cloud(new pcl::PointCloud<PointType>);
+
+void pcd_callback(const  sensor_msgs::PointCloud2& msg){
+	static int total=1;
+	double man_x,man_y;
+	float ix,iy,num;
+	//std::printf(" Visualser\n");
+	pcl::fromROSMsg(msg,*trcloud2);
+
+	push_cloud->width+=trcloud2->width;
+   	push_cloud->height=trcloud2->height;
+   	push_cloud->is_dense=true;
+	//push_cloud->points.resize(trcloud2->width*trcloud2->height*total);
+
+	for(int r=0;r<trcloud2->width*trcloud2->height;++r){	 
+		push_cloud->points.push_back(trcloud2->points[r]);
+	}
+	if(total>NoM){
+		std::cout<<"Point cloud are recieved"<<std::endl;
+		std::cout<<"Input number and How far did you move? [m]"<<std::endl;
+		std::cin>>num>>man_x>>man_y;
+		ix=(float)man_x;
+		iy=(float)man_y;
+		std::stringstream ss;
+		ss<<"no"<<num<<"_x"<<ix<<"_y"<<iy<<".pcd";
+		std::string fname=ss.str();
+		std::cout<<"File name : "<<fname<<std::endl;
+	
+		for(int r=0;r<push_cloud->width*push_cloud->height;++r){	 
+			push_cloud->points[r].x=push_cloud->points[r].x+man_x;
+			push_cloud->points[r].y=push_cloud->points[r].y+man_y;
+		}
+		pcl::io::savePCDFileBinary(fname,*push_cloud);
+		std::cout<<"File saved"<<std::endl;
+		push_cloud->points.clear();
+		exit(0);
+		total=1;
+	}
+	total++;
+	ros::spinOnce();
+}
+
+
+int main(int argc, char **argv){
+	int mes_cnt=0;
+	std_msgs::Float64 flt_msg;
+	char ch;
+	int k=0;
+	
+	ros::init(argc, argv, "manual_move");
+	ros::NodeHandle nh;
+	sensor_msgs::PointCloud2 point2;
+	ros::Subscriber sub2 = nh.subscribe("point2",10,pcd_callback);
+
+	ros::spin();
+	
+	return 0;
+}

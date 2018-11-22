@@ -1,0 +1,126 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <fstream>
+
+#include <ros/ros.h>
+#include <std_msgs/Float64.h>
+#include <sensor_msgs/PointCloud2.h>
+#include <pcl_ros/point_cloud.h>
+#include <pcl_conversions/pcl_conversions.h>
+
+#include <pcl/point_cloud.h>
+#include <pcl/point_types.h>
+#include <pcl/io/vlp_grabber.h>
+#include <pcl/console/parse.h>
+#include <pcl/visualization/pcl_visualizer.h>
+
+#define MAX_D 30000
+#define MAX_H 500
+
+struct stddev_dots{
+	double x;
+	double z;
+	double err;
+
+	stddev_dots(double x,double z,double err) : x(x),z(z),err(err) {}
+};
+
+struct grid_cell{
+	int    pt_num=0;
+
+	double sum_x;
+	double sum_y;
+	double sum_z;
+	double sum_intensity;
+	double sum_err;
+
+	double ave_x = sum_x/pt_num;
+	double ave_y = sum_y/pt_num;
+	double ave_z = sum_z/pt_num;
+	double ave_intensity = sum_intensity/pt_num;
+	double ave_err = sum_err/pt_num;
+
+	double sq_sum;
+	double std_dev = sqrt(sq_sum/pt_num - ave_z*ave_z);
+};
+
+sensor_msgs::PointCloud2 PointCloud;
+typedef pcl::PointXYZI PointType;
+//pcl::PointCloud<PointType> trcloud;
+pcl::PointCloud<PointType>::Ptr trcloud2(new pcl::PointCloud<PointType>);
+
+//Point cloud Vector
+pcl::PointCloud<PointType>::Ptr vizClouds(new pcl::PointCloud<PointType>);
+int total=1,j=0;
+
+void standard_deviation(pcl::PointCloud<PointType>::Ptr vizClouds,int total){
+	std::cout<<"standard_deviation  "<<vizClouds->width<<"  "<<vizClouds->height<<std::endl;
+	std::vector<stddev_dots> object_points;
+	std::vector<grid_cell> grid;
+	grid.resize(MAX_D/100);
+	double a0,a1,a00=0,a01=0,a02=0,a11=0,a12=0;
+	double d_err,sum_err=0;
+	int pt_num=0;
+	for(int i=0;i<vizClouds->width*vizClouds->height;i++){
+		//approximate straight line : z=a0+a1*x
+		if(-50<vizClouds->points[i].x && 50>vizClouds->points[i].x 
+				&& vizClouds->points[i].x != 0 && vizClouds->points[i].z != 0 
+					&& MAX_H>vizClouds->points[i].z && MAX_D>vizClouds->points[i].y && 0<vizClouds->points[i].y){
+			a00 += 1.0;
+			a01 += vizClouds->points[i].x;
+			a02 += vizClouds->points[i].z;
+			a11 += vizClouds->points[i].x * vizClouds->points[i].x;
+			a12 += vizClouds->points[i].z * vizClouds->points[i].z;
+		}
+		a0=(a02*a11-a01*a02)/(a00*a11-a01*a01);
+		a1=(a00*a12-a01*a02)/(a00*a11-a01*a01);
+	}
+	for(int i=0;i<vizClouds->width*vizClouds->height;i++){
+		//pick up : object points
+		if(-50<vizClouds->points[i].x && 50>vizClouds->points[i].x 
+				&& vizClouds->points[i].x != 0 && vizClouds->points[i].z != 0 
+					&& MAX_H>vizClouds->points[i].z && MAX_D>vizClouds->points[i].y && 0<vizClouds->points[i].y){
+
+			d_err = vizClouds->points[i].z; //-(a0+a1*vizClouds->points[i].y);
+
+			object_points.emplace_back(vizClouds->points[i].x ,vizClouds->points[i].z ,d_err);
+
+			std::cout<<vizClouds->points[i].x<<"  "<<vizClouds->points[i].y<<"  "<<vizClouds->points[i].z
+												<<"  "<<d_err<<"  "<<fabs(d_err)<<std::endl;
+			pt_num++;
+			sum_err += abs(d_err);
+		}
+	}
+	if(pt_num != 0)std::cout<<"average_Z:"<<sum_err/pt_num<<"  a0:"<<a0<<"  a1"<<a1<<std::endl;
+}
+void callback(const  sensor_msgs::PointCloud2& msg){
+	//std::printf(" Visualser\n");
+	pcl::fromROSMsg(msg,*trcloud2);
+	//std::cout<<trcloud2->points[0]<<std::endl;
+	vizClouds->width=trcloud2->width*total;
+   	vizClouds->height=trcloud2->height;
+   	vizClouds->is_dense=true;
+	vizClouds->points.resize(trcloud2->width*trcloud2->height*total);
+	for(int r=0;r<vizClouds->width*vizClouds->height;++r){	 
+		vizClouds->points.push_back(trcloud2->points[r]);
+	}
+	if(total>11){
+		standard_deviation(vizClouds,total);
+
+		vizClouds->points.clear();
+		total=1;
+	}
+	total++;
+	ros::spin();
+}
+
+int main(int argc, char** argv){
+	printf("pcd visualizer\n");
+	ros::init(argc, argv, "sub_pcl_stddev");
+	ros::NodeHandle nh;
+	sensor_msgs::PointCloud2 point2;
+	ros::Subscriber sub = nh.subscribe("point2",10,callback);
+	
+	ros::spin();
+}

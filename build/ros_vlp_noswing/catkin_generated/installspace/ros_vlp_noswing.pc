@@ -1,0 +1,8 @@
+prefix=/home/nvidia/catkin_ws/install
+
+Name: ros_vlp_noswing
+Description: Description of ros_vlp_noswing
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/nvidia/catkin_ws/install/lib 
+Requires: 

@@ -1,0 +1,49 @@
+#include <ros/ros.h>
+#include <std_msgs/Float64.h>
+#include <std_srvs/Empty.h>
+#include <math.h>
+
+void subscribeCallback(const std_msgs::Float64& msg0)
+{
+	ROS_INFO_STREAM("subscribe callback");
+	ROS_INFO_STREAM(msg0.data);
+}
+
+int main(int argc, char **argv){
+	ros::init(argc, argv, "clt_test");
+	ros::NodeHandle nh0;
+	
+	ros::ServiceClient testClient = nh0.serviceClient<std_srvs::Empty>("gps_data");
+	std_srvs::Empty::Request req;
+	std_srvs::Empty::Response resp;
+
+	ros::Rate rate(1);
+
+	ros::Subscriber sub = nh0.subscribe("test_return",1,&subscribeCallback);
+	ros::Publisher pub = nh0.advertise<std_msgs::Float64>("test_flg",1);
+	int i=0,j=0;
+	std_msgs::Float64 int_msg;
+	
+	
+	while(ros::ok()){
+	        double d;
+		if(i>6){
+			bool result = testClient.call(req, resp);
+			if(result){
+				ROS_INFO_STREAM("Recieve response");
+       			}else{
+				ROS_INFO_STREAM("Error");
+			}
+			i=0;
+		}
+		if(i==2){
+			int_msg.data=j;
+			
+			j++;
+		}
+		i++;
+		rate.sleep();
+		ros::spinOnce();
+	}
+	return 0;
+}

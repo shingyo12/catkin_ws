@@ -1,0 +1,68 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <fstream> 
+
+#include <ros/ros.h>
+#include <geometry_msgs/Pose.h>
+#include <sensor_msgs/PointCloud2.h>
+#include <pcl_ros/point_cloud.h>
+#include <pcl_conversions/pcl_conversions.h>
+
+#include <pcl/point_cloud.h>
+#include <pcl/point_types.h>
+#include <pcl/io/vlp_grabber.h>
+#include <pcl/console/parse.h>
+#include <pcl/visualization/pcl_visualizer.h>
+#include <pcl/registration/icp.h>
+#include <pcl/io/pcd_io.h>
+
+#define BIN_FILE_NAME "combined_cloud.pcd"
+
+sensor_msgs::PointCloud2 PointCloud;
+typedef pcl::PointXYZI PointType;
+
+pcl::PointCloud<PointType>::Ptr mv_cloud(new pcl::PointCloud<PointType>);
+pcl::PointCloud<PointType>::Ptr tmp_cloud(new pcl::PointCloud<PointType>);
+pcl::PointCloud<PointType> align_cloud;
+
+void pcd_callback(const  sensor_msgs::PointCloud2& msg){	
+       	static int icp_cnt=0;
+	std::printf(" pcd_callback\n");
+	pcl::fromROSMsg(msg,*mv_cloud);
+	pcl::IterativeClosestPoint<pcl::PointXYZI, pcl::PointXYZI> icp;
+
+	ros::NodeHandle nh1;
+	ros::Publisher pub = nh1.advertise<sensor_msgs::PointCloud2>("align_cloud",1);
+	sensor_msgs::PointCloud2 align_point2;
+	
+	if(icp_cnt==0){
+		*tmp_cloud=*mv_cloud;
+		pcl::toROSMsg(*mv_cloud,align_point2);
+	}
+	else{
+		icp.setInputSource(mv_cloud);
+		icp.setInputTarget(tmp_cloud);
+		icp.align(align_cloud);
+		*tmp_cloud=align_cloud;
+		pcl::io::savePCDFileBinary(BIN_FILE_NAME,align_cloud);
+
+		pcl::toROSMsg(align_cloud,align_point2);
+		
+	}
+	pub.publish(align_cloud);
+	icp_cnt++;
+}
+
+
+int main(int argc, char **argv){
+
+	ros::init(argc, argv, "sub_icp");
+	ros::NodeHandle nh;
+	sensor_msgs::PointCloud2 point2;
+	ros::Subscriber sub2 = nh.subscribe("point2",10,pcd_callback);
+
+	ros::spin();
+
+	return 0;
+}

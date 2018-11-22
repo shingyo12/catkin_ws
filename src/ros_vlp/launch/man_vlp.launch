@@ -1,0 +1,5 @@
+<launch>
+		<node pkg="ros_vlp" name="usb_cycle" type="usb_cycle"/>
+		<node pkg="ros_vlp" name="vlp_pcd" type="vlp_pcd"/>
+		<node pkg="ros_vlp" name="sub_pcl_visualizer" type="sub_pcl_visualizer"/>
+</launch>
