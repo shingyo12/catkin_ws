@@ -41,7 +41,8 @@ pcl::PointCloud<PointType>::Ptr moved_cloud(new pcl::PointCloud<PointType>);
 void gps_callback(const  geometry_msgs::Pose& mgs){
 	sensor_pos.x=mgs.position.y;
 	sensor_pos.y=mgs.position.x;
-	gps_flg=1;}
+	gps_flg=1;
+}
 
 void pcd_callback(const  sensor_msgs::PointCloud2& msg){
 	static int total=1;

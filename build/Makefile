@@ -1338,19 +1338,6 @@ hello/fast:
 .PHONY : hello/fast
 
 #=============================================================================
-# Target rules for targets named manual_icp
-
-# Build rule for target.
-manual_icp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 manual_icp
-.PHONY : manual_icp
-
-# fast build rule for target.
-manual_icp/fast:
-	$(MAKE) -f swing_vlp/CMakeFiles/manual_icp.dir/build.make swing_vlp/CMakeFiles/manual_icp.dir/build
-.PHONY : manual_icp/fast
-
-#=============================================================================
 # Target rules for targets named pcd_record
 
 # Build rule for target.
@@ -1401,6 +1388,58 @@ manual_icp2: cmake_check_build_system
 manual_icp2/fast:
 	$(MAKE) -f swing_vlp/CMakeFiles/manual_icp2.dir/build.make swing_vlp/CMakeFiles/manual_icp2.dir/build
 .PHONY : manual_icp2/fast
+
+#=============================================================================
+# Target rules for targets named vlp_gpu
+
+# Build rule for target.
+vlp_gpu: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 vlp_gpu
+.PHONY : vlp_gpu
+
+# fast build rule for target.
+vlp_gpu/fast:
+	$(MAKE) -f swing_vlp/CMakeFiles/vlp_gpu.dir/build.make swing_vlp/CMakeFiles/vlp_gpu.dir/build
+.PHONY : vlp_gpu/fast
+
+#=============================================================================
+# Target rules for targets named vlp_pcd_imu
+
+# Build rule for target.
+vlp_pcd_imu: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 vlp_pcd_imu
+.PHONY : vlp_pcd_imu
+
+# fast build rule for target.
+vlp_pcd_imu/fast:
+	$(MAKE) -f swing_vlp/CMakeFiles/vlp_pcd_imu.dir/build.make swing_vlp/CMakeFiles/vlp_pcd_imu.dir/build
+.PHONY : vlp_pcd_imu/fast
+
+#=============================================================================
+# Target rules for targets named manual_icp
+
+# Build rule for target.
+manual_icp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 manual_icp
+.PHONY : manual_icp
+
+# fast build rule for target.
+manual_icp/fast:
+	$(MAKE) -f swing_vlp/CMakeFiles/manual_icp.dir/build.make swing_vlp/CMakeFiles/manual_icp.dir/build
+.PHONY : manual_icp/fast
+
+#=============================================================================
+# Target rules for targets named usb_gps_js
+
+# Build rule for target.
+usb_gps_js: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 usb_gps_js
+.PHONY : usb_gps_js
+
+# fast build rule for target.
+usb_gps_js/fast:
+	$(MAKE) -f swing_vlp/CMakeFiles/usb_gps_js.dir/build.make swing_vlp/CMakeFiles/usb_gps_js.dir/build
+.PHONY : usb_gps_js/fast
 
 #=============================================================================
 # Target rules for targets named manual_visualizer
@@ -1596,32 +1635,6 @@ swing_core: cmake_check_build_system
 swing_core/fast:
 	$(MAKE) -f swing_vlp/CMakeFiles/swing_core.dir/build.make swing_vlp/CMakeFiles/swing_core.dir/build
 .PHONY : swing_core/fast
-
-#=============================================================================
-# Target rules for targets named vlp_pcd_imu
-
-# Build rule for target.
-vlp_pcd_imu: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 vlp_pcd_imu
-.PHONY : vlp_pcd_imu
-
-# fast build rule for target.
-vlp_pcd_imu/fast:
-	$(MAKE) -f swing_vlp/CMakeFiles/vlp_pcd_imu.dir/build.make swing_vlp/CMakeFiles/vlp_pcd_imu.dir/build
-.PHONY : vlp_pcd_imu/fast
-
-#=============================================================================
-# Target rules for targets named vlp_gpu
-
-# Build rule for target.
-vlp_gpu: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 vlp_gpu
-.PHONY : vlp_gpu
-
-# fast build rule for target.
-vlp_gpu/fast:
-	$(MAKE) -f swing_vlp/CMakeFiles/vlp_gpu.dir/build.make swing_vlp/CMakeFiles/vlp_gpu.dir/build
-.PHONY : vlp_gpu/fast
 
 #=============================================================================
 # Target rules for targets named map_make_mm
@@ -3442,11 +3455,14 @@ help:
 	@echo "... nodelet_generate_messages_eus"
 	@echo "... bond_generate_messages_nodejs"
 	@echo "... hello"
-	@echo "... manual_icp"
 	@echo "... pcd_record"
 	@echo "... usb_gps"
 	@echo "... sub_pcl_visualizer"
 	@echo "... manual_icp2"
+	@echo "... vlp_gpu"
+	@echo "... vlp_pcd_imu"
+	@echo "... manual_icp"
+	@echo "... usb_gps_js"
 	@echo "... manual_visualizer"
 	@echo "... manual_icp_multi"
 	@echo "... vlp_pcd"
@@ -3462,8 +3478,6 @@ help:
 	@echo "... map_make"
 	@echo "... usb_imu"
 	@echo "... swing_core"
-	@echo "... vlp_pcd_imu"
-	@echo "... vlp_gpu"
 	@echo "... map_make_mm"
 	@echo "... usb_imu_mm"
 	@echo "... manual_filter_mm"

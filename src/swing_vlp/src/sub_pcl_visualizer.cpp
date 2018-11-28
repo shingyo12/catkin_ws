@@ -7,6 +7,7 @@
 #include <sensor_msgs/PointCloud2.h>
 #include <pcl_ros/point_cloud.h>
 #include <pcl_conversions/pcl_conversions.h>
+#include <std_msgs/Float32MultiArray.h>
 
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
@@ -41,6 +42,26 @@ void initVis(){
         handler = color_handler;
 }
 
+//paramater for camera position in viewer
+static float cam_yaw=0,cam_pitch=0,cam_roll=0;
+static float cam_x=0,cam_y=0,cam_z=0;
+static float cam_zoom=20;
+void js_callback(const  std_msgs::Float32MultiArray& cmd_ctrl){
+	//printf("callback\n");
+	std::cout<<"[0]"<<(int)cmd_ctrl.data[0]<<" [1]"<<(int)cmd_ctrl.data[1]<<" [2]"<<(int)cmd_ctrl.data[2]
+		 <<" [3]"<<(int)cmd_ctrl.data[3]<<" [4]"<<(int)cmd_ctrl.data[4]<<" [5]"<<(int)cmd_ctrl.data[5]<<std::endl;
+	cam_yaw   += (float)cmd_ctrl.data[6];
+	cam_pitch += (float)cmd_ctrl.data[7];
+	cam_roll  += (float)cmd_ctrl.data[7];
+	cam_x     += (float)cmd_ctrl.data[8];
+	cam_y     += (float)cmd_ctrl.data[9];
+	cam_z     += (float)cmd_ctrl.data[9];
+	cam_zoom  += (float)cmd_ctrl.data[10];
+	// Setting camera paramater
+	viewer->setCameraPosition( cam_zoom+cam_x, cam_zoom+cam_y, cam_zoom+cam_z, cam_yaw, cam_pitch, cam_roll, cam_yaw, cam_pitch, cam_roll, 0);
+	viewer->spinOnce();
+}
+
 void callback(const  sensor_msgs::PointCloud2& msg){
 	//Point cloud Vector
 	//pcl::PointCloud<PointType>::Ptr vizClouds(new pcl::PointCloud<PointType>);
@@ -59,7 +80,7 @@ void callback(const  sensor_msgs::PointCloud2& msg){
 	if(total>10){
 		//create filtering object
 		/*pcl::PassThrough<pcl::PointXYZI> pass;
-		pass.setInputCloud (vizClouds);
+ 		pass.setInputCloud (vizClouds);
 		pass.setFilterFieldName ("z");
 		pass.setFilterLimits (-2000,20000); //2600
 		//pass.setFilterLimitsNegative(true);
@@ -97,6 +118,8 @@ void callback(const  sensor_msgs::PointCloud2& msg){
 		total=0;
 	}
 	total++;
+	// Setting camera paramater
+	//viewer->setCameraPosition( cam_yaw, cam_pitch, cam_roll, cam_x, cam_y, cam_z, cam_zoom );
 	// Update Viewer
         viewer->spinOnce();
 
@@ -110,6 +133,7 @@ int main(int argc, char** argv){
 	ros::NodeHandle nh;
 	sensor_msgs::PointCloud2 point2;
 	ros::Subscriber sub = nh.subscribe("point2",1,callback);
+	ros::Subscriber sub1 = nh.subscribe("cmd_ctrl",1,js_callback);
 	ros::spin();
 	//visualiser();
 

@@ -146,6 +146,7 @@ include_directories(
 
 add_executable(usb_cycle  src/usb_cycle.cpp)
 add_executable(usb_gps  src/usb_gps.cpp)
+add_executable(usb_gps_js  src/usb_gps_js.cpp)
 add_executable(vlp_pcd  src/vlp_pcd.cpp)
 
 add_executable(vlp_pcd_imu  src/vlp_pcd_imu.cpp)
@@ -193,6 +194,7 @@ cuda_add_executable(vlp_gpu
 
 target_link_libraries(usb_cycle   ${catkin_LIBRARIES})
 target_link_libraries(usb_gps   ${catkin_LIBRARIES})
+target_link_libraries(usb_gps_js  ${catkin_LIBRARIES})
 target_link_libraries(vlp_pcd  ${catkin_LIBRARIES})
 
 target_link_libraries(vlp_pcd_imu   ${catkin_LIBRARIES})

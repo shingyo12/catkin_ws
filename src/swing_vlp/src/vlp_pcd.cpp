@@ -32,6 +32,12 @@
 //#include <pcl/io/vlp_grabber.h>
 #include <pcl/console/parse.h>
 
+#include <geometry_msgs/Pose.h>
+#include <tf/transform_broadcaster.h>
+#include <tf2_ros/static_transform_broadcaster.h>
+#include <tf2/LinearMath/Quaternion.h>
+#include <std_msgs/Float32MultiArray.h>
+
 #define S_SET 0 
 #define E_SET 32
 //#define Flexion_Angle 1.065//1.26066
@@ -55,6 +61,23 @@ double axis_rotangle = 360;
 
 double AOV[32];
 int    idx[32] = {0};
+
+//imu posiion data
+struct rpy{
+       double r=0;
+       double p=0;
+       double y=0;
+};
+rpy imu;
+
+struct position {
+	double x;
+	double y;
+};
+position sensor_pos;
+
+double s_ang=0;
+double rot_bias=0;
 
 void init_LRF(){
 	//make pich direction sin & cos val from caliration table.	
@@ -142,19 +165,74 @@ void messageCallBack(const std_msgs::Float64& msg){
 	//std::printf(" callback\n");
 	//swing_cycle=msg.data;
 	
-	axis_rotangle = 80;
+	axis_rotangle = 80 + rot_bias;
 	axis_d_rotangle=-0.1*(0.2/360)*(360/msg.data);
 	//ROS_INFO_STREAM(axis_d_rotangle);
-	std::printf("callback %d %lf\n",test,axis_d_rotangle);
+	//std::printf("callback %d %lf\n",test,axis_d_rotangle);
 	test++;
 }
+
+void imu_callback(const  geometry_msgs::Quaternion& qtn_msgs){
+	tf::Quaternion qtn(qtn_msgs.x,qtn_msgs.y,qtn_msgs.z,qtn_msgs.w);
+	//std::cout<<qtn<<std::endl;
+	tf::Matrix3x3 m(qtn);
+	m.getRPY(imu.r,imu.p,imu.y);
+	std::printf("r:%lf p:%lf y:%lf\n",imu.r,imu.p,imu.y);
+	//std::printf("%lf %lf %lf %lf\n",qtn_msgs.x,qtn_msgs.y,qtn_msgs.z,qtn_msgs.w);
+}
+
+void js_callback(const  std_msgs::Float32MultiArray& cmd_ctrl){
+	std::cout<<"[0]"<<(int)cmd_ctrl.data[0]<<" [1]"<<(int)cmd_ctrl.data[1]<<" [2]"<<(int)cmd_ctrl.data[2]
+		 <<" [3]"<<(int)cmd_ctrl.data[3]<<" [4]"<<(int)cmd_ctrl.data[4]<<" [5]"<<(int)cmd_ctrl.data[5]<<std::endl;
+	double rot_d=0.01;
+	double flx_d=0.001;
+	//caliblation rotation angle
+	if((int)cmd_ctrl.data[4] == 1){
+		if((int)cmd_ctrl.data[2] == 1)rot_d=rot_d*10;
+		rot_bias+=rot_d;
+	}else if((int)cmd_ctrl.data[4] == -1){
+		if((int)cmd_ctrl.data[2] == 1)rot_d=rot_d*10;
+		rot_bias-=rot_d;
+	}
+	//caliblation flixion angle
+	if((int)cmd_ctrl.data[5] == 1){
+		if((int)cmd_ctrl.data[2] == 1)flx_d=rot_d*10;
+		s_ang+=flx_d;
+	}else if((int)cmd_ctrl.data[5] == -1){
+		if((int)cmd_ctrl.data[2] == 1)flx_d=rot_d*10;
+		s_ang-=flx_d;
+	}
+}
+
+void gps_callback(const  geometry_msgs::Pose& mgs){
+	sensor_pos.x=mgs.position.y;
+	sensor_pos.y=mgs.position.x;
+}
+/*void imu_coodinate_trans(double& x, double& y,double& z){
+	double cosY=cos(imu.y);
+	double cosP=cos(imu.p);
+	double cosR=cos(imu.r);
+	double sinY=sin(imu.y);
+	double sinP=sin(imu.p);
+	double sinR=sin(imu.r);
+
+	double tx=x;
+	double ty=y;
+	double tz=z;
+
+	//x=cosP*cosR*tx + (sinY*sinP*cosR-cosY*sinR)*ty + (sinY*sinR+cosY*sinP*cosR)*tz;
+	x=tx*2;
+	y=cosP*sinR*tx + (sinY*sinP*sinR+cosY*cosR)*ty + (-sinY*cosR+cosY*sinP*sinR)*tz;
+	z=-sinP*tx + sinY*cosP*ty + cosY*cosP*tz;
+
+	//std::printf("r:%lf p:%lf y:%lf\n",imu.r,imu.p,imu.y);
+	}*/
 
 void swing_coodinate_trans(struct dots *q, int pnum_start, int pnum_end){
 	//std::printf("swing coordinate trans %d\n",dn);
 	int i, j ,k = 0;
 	double a;  //rotation angle of axis (rad)
 	double sa,ca;  //sin(a) and cos(a)
-	double s_ang = 0;
 	double b = (Flexion_Angle+s_ang) * M_PI/180;  //flexion angle of axis (rad)
 	double d_lo = 25 + 37.7;  //distance : flexion point to laser origin (mm)
 	//i is Block loop val.
@@ -171,6 +249,23 @@ void swing_coodinate_trans(struct dots *q, int pnum_start, int pnum_end){
 			q->tX[i][j] = (sa*sa+ca*ca)*xs + b*ca*zs + d_lo*b*ca;
 			q->tY[i][j] = (sa*sa+ca*ca)*ys + b*sa*zs + d_lo*b*sa;
 			q->tZ[i][j] = -b*ca*xs -b*sa*ys + zs + d_lo + Z_offset;
+
+			//using imu
+			double cosY=cos(imu.y);
+			double cosP=cos(imu.p);
+			double cosR=cos(imu.r);
+			double sinY=sin(imu.y);
+			double sinP=sin(imu.p);
+			double sinR=sin(imu.r);
+
+			double tx=q->tX[i][j];
+			double ty=q->tY[i][j];
+			double tz=q->tZ[i][j];
+
+			q->tX[i][j]=cosP*cosR*tx + (sinY*sinP*cosR-cosY*sinR)*ty + (sinY*sinR+cosY*sinP*cosR)*tz;
+			q->tY[i][j]=cosP*sinR*tx + (sinY*sinP*sinR+cosY*cosR)*ty + (-sinY*cosR+cosY*sinP*sinR)*tz;
+			q->tZ[i][j]=-sinP*tx + sinY*cosP*ty + cosY*cosP*tz;
+
 		}
 		//std::cout<<"  rotation_angle "<<axis_rotangle;
 	}
@@ -300,11 +395,16 @@ void receiveLRF(void *arg){
 	ros::NodeHandle nh;
 	ros::Subscriber sub = nh.subscribe("cycle",1,&messageCallBack);
 	ros::Publisher pub  = nh.advertise<sensor_msgs::PointCloud2>("point2",10);
+	ros::Subscriber sub1 = nh.subscribe("imu_pose",10,imu_callback);
+	ros::Subscriber sub2 = nh.subscribe("cmd_ctrl",10,js_callback);
+	ros::Subscriber sub3 = nh.subscribe("gps",10,gps_callback);
 	sensor_msgs::PointCloud2 point2;
 	std_msgs::Float64 msg;
 
 	pcl::PointCloud<pcl::PointXYZI> trcloud;
 
+	sensor_pos.x = sensor_pos.y = 0;
+	
 	while(ros::ok()){
 		//printf("P_cycle %lf\n",P_cycle);
 		//data recive
@@ -338,8 +438,8 @@ void receiveLRF(void *arg){
 			for(Lines = 0; Lines < 32; Lines++) {
 				//Dis is distance.
 				//Ref is intensity.
-				p.dis[Blocks][Lines] = (buf[Blocks * 100 + Lines * 3 + 4] 
-							+ (buf[Blocks * 100 + Lines* 3 + 5] << 8))*0.001;
+				p.dis[Blocks][Lines] = 	buf[Blocks * 100 + Lines * 3 + 4] 
+						 	  + (buf[Blocks * 100 + Lines* 3 + 5] << 8);
 				p.ref[Blocks][Lines] = 	buf[Blocks * 100 + Lines * 3 + 6];
 			}
 			//cout<<"cn:"<<cn<<" dn:"<<dn<<endl;
@@ -362,6 +462,8 @@ void receiveLRF(void *arg){
    			trcloud.height=16;
    			trcloud.is_dense=true;
    			trcloud.points.resize(trcloud.width*trcloud.height);
+			trcloud.sensor_orientation_.x()=sensor_pos.x;
+			trcloud.sensor_orientation_.y()=sensor_pos.y;
    			int j=0;
 			//std::cout<<"tr size "<<dn*2<<std::endl;
    			/*for(int r=0;r<dn*2-2;r++){
