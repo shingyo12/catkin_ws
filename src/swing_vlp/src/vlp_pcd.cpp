@@ -33,10 +33,11 @@
 #include <pcl/console/parse.h>
 
 #include <geometry_msgs/Pose.h>
-#include <tf/transform_broadcaster.h>
-#include <tf2_ros/static_transform_broadcaster.h>
-#include <tf2/LinearMath/Quaternion.h>
+//#include <tf/transform_broadcaster.h>
+//#include <tf2_ros/static_transform_broadcaster.h>
+//#include <tf2/LinearMath/Quaternion.h>
 #include <std_msgs/Float32MultiArray.h>
+#include <std_msgs/Float64MultiArray.h>
 
 #define S_SET 0 
 #define E_SET 32
@@ -172,11 +173,14 @@ void messageCallBack(const std_msgs::Float64& msg){
 	test++;
 }
 
-void imu_callback(const  geometry_msgs::Quaternion& qtn_msgs){
-	tf::Quaternion qtn(qtn_msgs.x,qtn_msgs.y,qtn_msgs.z,qtn_msgs.w);
+void imu_callback(const  std_msgs::Float64MultiArray& imu_msgs){
+	//tf::Quaternion qtn(qtn_msgs.x,qtn_msgs.y,qtn_msgs.z,qtn_msgs.w);
 	//std::cout<<qtn<<std::endl;
-	tf::Matrix3x3 m(qtn);
-	m.getRPY(imu.r,imu.p,imu.y);
+	//tf::Matrix3x3 m(qtn);
+	//m.getRPY(imu.r,imu.p,imu.y);
+	imu.y=-imu_msgs.data[0];
+	imu.p=-imu_msgs.data[2];
+	imu.r=-imu_msgs.data[1];
 	std::printf("r:%lf p:%lf y:%lf\n",imu.r,imu.p,imu.y);
 	//std::printf("%lf %lf %lf %lf\n",qtn_msgs.x,qtn_msgs.y,qtn_msgs.z,qtn_msgs.w);
 }
@@ -208,7 +212,9 @@ void gps_callback(const  geometry_msgs::Pose& mgs){
 	sensor_pos.x=mgs.position.y;
 	sensor_pos.y=mgs.position.x;
 }
-/*void imu_coodinate_trans(double& x, double& y,double& z){
+
+void imu_coodinate_trans(struct dots *q,int i,int j){
+	//using imu
 	double cosY=cos(imu.y);
 	double cosP=cos(imu.p);
 	double cosR=cos(imu.r);
@@ -216,17 +222,27 @@ void gps_callback(const  geometry_msgs::Pose& mgs){
 	double sinP=sin(imu.p);
 	double sinR=sin(imu.r);
 
-	double tx=x;
-	double ty=y;
-	double tz=z;
+/*	double cosY=cos(-1);//yaw
+	double cosP=cos(1);//roll
+	double cosR=cos(1);//roll
+	double sinY=sin(-1);//yaw
+	double sinP=sin(1);//roll
+	double sinR=sin(1);//roll
+*/
+        double tx=q->tX[i][j];
+	double ty=q->tY[i][j];
+	double tz=q->tZ[i][j];
+ 
+        q->tX[i][j]=cosY*cosP*tx + (cosY*sinP*sinR-sinY*cosR)*ty + (cosY*sinP*cosR+sinY*sinR)*tz;
+	q->tY[i][j]=sinY*cosP*tx + (sinY*sinP*sinR+cosY*cosR)*ty + (sinY*sinP*cosR-cosY*sinR)*tz;
+	q->tZ[i][j]=-sinP*tx + cosP*sinR*ty + cosP*cosR*tz;  
 
-	//x=cosP*cosR*tx + (sinY*sinP*cosR-cosY*sinR)*ty + (sinY*sinR+cosY*sinP*cosR)*tz;
-	x=tx*2;
-	y=cosP*sinR*tx + (sinY*sinP*sinR+cosY*cosR)*ty + (-sinY*cosR+cosY*sinP*sinR)*tz;
-	z=-sinP*tx + sinY*cosP*ty + cosY*cosP*tz;
-
-	//std::printf("r:%lf p:%lf y:%lf\n",imu.r,imu.p,imu.y);
-	}*/
+/*	q->tX[i][j]=cosP*cosR*tx + (sinY*sinP*cosR-cosY*sinR)*ty + (sinY*sinR+cosY*sinP*cosR)*tz;
+	q->tY[i][j]=cosP*sinR*tx + (sinY*sinP*sinR+cosY*cosR)*ty + (-sinY*cosR+cosY*sinP*sinR)*tz;
+	q->tZ[i][j]=-sinP*tx + sinY*cosP*ty + cosY*cosP*tz;
+*/
+	//std::printf("y:%lf p:%lf r:%lf\n",imu.y,imu.p,imu.r);
+}
 
 void swing_coodinate_trans(struct dots *q, int pnum_start, int pnum_end){
 	//std::printf("swing coordinate trans %d\n",dn);
@@ -251,7 +267,7 @@ void swing_coodinate_trans(struct dots *q, int pnum_start, int pnum_end){
 			q->tZ[i][j] = -b*ca*xs -b*sa*ys + zs + d_lo + Z_offset;
 
 			//using imu
-			double cosY=cos(imu.y);
+			/*double cosY=cos(imu.y);
 			double cosP=cos(imu.p);
 			double cosR=cos(imu.r);
 			double sinY=sin(imu.y);
@@ -265,7 +281,8 @@ void swing_coodinate_trans(struct dots *q, int pnum_start, int pnum_end){
 			q->tX[i][j]=cosP*cosR*tx + (sinY*sinP*cosR-cosY*sinR)*ty + (sinY*sinR+cosY*sinP*cosR)*tz;
 			q->tY[i][j]=cosP*sinR*tx + (sinY*sinP*sinR+cosY*cosR)*ty + (-sinY*cosR+cosY*sinP*sinR)*tz;
 			q->tZ[i][j]=-sinP*tx + sinY*cosP*ty + cosY*cosP*tz;
-
+			*/
+			imu_coodinate_trans(q,i,j);
 		}
 		//std::cout<<"  rotation_angle "<<axis_rotangle;
 	}
@@ -479,9 +496,9 @@ void receiveLRF(void *arg){
 			//std::cout<<"size:"<<j<<std::endl;
 			for(int r=0;r<dn*2-2;++r){
 	    			for(int k=0;k<16;k++){	 
-					trcloud.at(r,k).x=q.tX[r][k];
-		 			trcloud.at(r,k).y=q.tY[r][k];
-		 			trcloud.at(r,k).z=q.tZ[r][k];
+					trcloud.at(r,k).x=q.tX[r][k]*0.001;
+		 			trcloud.at(r,k).y=q.tY[r][k]*0.001;
+		 			trcloud.at(r,k).z=q.tZ[r][k]*0.001;
 		 			trcloud.at(r,k).intensity=q.tIntensity[r][k];
 		 			//j++;
 	      			}
@@ -517,7 +534,3 @@ int main(int argc, char *argv[]){
 
 	return 0;
 }
-
-
-
-

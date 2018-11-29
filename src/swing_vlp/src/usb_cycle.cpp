@@ -15,7 +15,7 @@
 #include <errno.h>
 #include <asm/ioctls.h>
 
-#define tty_dev "/dev/ttyUSB1"
+#define tty_dev "/dev/ttyUSB0"
 
 int config_port(void) {
   	int fd;

@@ -97,7 +97,7 @@ void pcd_callback(const  sensor_msgs::PointCloud2& msg){
 			strftime(date, sizeof(date), "%Y%m%d%H%M%s", localtime(&t));
 			std::stringstream ss;
 			printf("string stream\n");
-			ss<<date<<".pcd";
+			ss<<"~/pcd_data/"<<date<<".pcd";
 			std::string fname=ss.str();
 			std::cout<<"File name : "<<fname<<std::endl;
 			pcl::io::savePCDFileBinary(fname,*push_cloud);

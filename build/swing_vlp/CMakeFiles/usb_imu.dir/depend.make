@@ -71,7 +71,10 @@ swing_vlp/CMakeFiles/usb_imu.dir/src/usb_imu.cpp.o: /opt/ros/kinetic/include/ros
 swing_vlp/CMakeFiles/usb_imu.dir/src/usb_imu.cpp.o: /opt/ros/kinetic/include/ros/wall_timer_options.h
 swing_vlp/CMakeFiles/usb_imu.dir/src/usb_imu.cpp.o: /opt/ros/kinetic/include/rosconsole/macros_generated.h
 swing_vlp/CMakeFiles/usb_imu.dir/src/usb_imu.cpp.o: /opt/ros/kinetic/include/std_msgs/Float64.h
+swing_vlp/CMakeFiles/usb_imu.dir/src/usb_imu.cpp.o: /opt/ros/kinetic/include/std_msgs/Float64MultiArray.h
 swing_vlp/CMakeFiles/usb_imu.dir/src/usb_imu.cpp.o: /opt/ros/kinetic/include/std_msgs/Header.h
+swing_vlp/CMakeFiles/usb_imu.dir/src/usb_imu.cpp.o: /opt/ros/kinetic/include/std_msgs/MultiArrayDimension.h
+swing_vlp/CMakeFiles/usb_imu.dir/src/usb_imu.cpp.o: /opt/ros/kinetic/include/std_msgs/MultiArrayLayout.h
 swing_vlp/CMakeFiles/usb_imu.dir/src/usb_imu.cpp.o: /opt/ros/kinetic/include/tf/LinearMath/Matrix3x3.h
 swing_vlp/CMakeFiles/usb_imu.dir/src/usb_imu.cpp.o: /opt/ros/kinetic/include/tf/LinearMath/Quaternion.h
 swing_vlp/CMakeFiles/usb_imu.dir/src/usb_imu.cpp.o: /opt/ros/kinetic/include/tf/LinearMath/Transform.h
