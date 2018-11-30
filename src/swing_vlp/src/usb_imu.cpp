@@ -151,10 +151,6 @@ int main(int argc, char **argv){
 			//std::cout<<qtn<<std::endl;
 			pub.publish(imu_pose);
 		}
-
-		//pub.publish(qtn);
-		//ROS_INFO_STREAM(cycle.data);
-
 	}
     return 0;
 }
