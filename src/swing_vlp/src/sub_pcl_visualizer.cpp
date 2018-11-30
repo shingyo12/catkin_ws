@@ -15,6 +15,7 @@
 #include <pcl/console/parse.h>
 #include <pcl/visualization/pcl_visualizer.h>
 #include <pcl/filters/passthrough.h>
+#include <pcl/visualization/common/common.h>
 
 sensor_msgs::PointCloud2 PointCloud;
 typedef pcl::PointXYZI PointType;
@@ -43,22 +44,28 @@ void initVis(){
 }
 
 //paramater for camera position in viewer
-static float cam_yaw=0,cam_pitch=0,cam_roll=0;
-static float cam_x=0,cam_y=0,cam_z=0;
-static float cam_zoom=20;
+//std::vector Cameras;
+static double pos_0=0,pos_1=0,pos_2=0;
+static double focal_0=0,focal_1=0,focal_2=0;
+static double view_0=0,view_1=0,view_2=0;
 void js_callback(const  std_msgs::Float32MultiArray& cmd_ctrl){
 	//printf("callback\n");
 	std::cout<<"[0]"<<(int)cmd_ctrl.data[0]<<" [1]"<<(int)cmd_ctrl.data[1]<<" [2]"<<(int)cmd_ctrl.data[2]
 		 <<" [3]"<<(int)cmd_ctrl.data[3]<<" [4]"<<(int)cmd_ctrl.data[4]<<" [5]"<<(int)cmd_ctrl.data[5]<<std::endl;
-	cam_yaw   += (float)cmd_ctrl.data[6];
-	cam_pitch += (float)cmd_ctrl.data[7];
-	cam_roll  += (float)cmd_ctrl.data[7];
-	cam_x     += (float)cmd_ctrl.data[8];
-	cam_y     += (float)cmd_ctrl.data[9];
-	cam_z     += (float)cmd_ctrl.data[9];
-	cam_zoom  += (float)cmd_ctrl.data[10];
+	std::vector<pcl::visualization::Camera> cam;
+	viewer->getCameras(cam);
+	pos_0   = cam[0].pos[0]-(double)cmd_ctrl.data[6];
+	pos_1   = cam[0].pos[1]+(double)cmd_ctrl.data[7];
+	pos_2   = cam[0].pos[2]+(double)cmd_ctrl.data[10];
+	focal_0 = cam[0].focal[0]-(double)cmd_ctrl.data[8];
+	focal_1 = cam[0].focal[1]+(double)cmd_ctrl.data[9];
+	focal_2 = cam[0].focal[2];
+	view_0  = cam[0].view[0];
+	view_1  = cam[0].view[1];
+	view_2  = cam[0].view[2];
+
 	// Setting camera paramater
-	viewer->setCameraPosition( cam_zoom+cam_x, cam_zoom+cam_y, cam_zoom+cam_z, cam_yaw, cam_pitch, cam_roll, cam_yaw, cam_pitch, cam_roll, 0);
+	viewer->setCameraPosition(pos_0, pos_1, pos_2, focal_0, focal_1, focal_2, view_0, view_1, view_2, 0);
 	viewer->spinOnce();
 }
 

@@ -20,7 +20,7 @@
 #include <errno.h>
 #include <asm/ioctls.h>
 
-#define tty_dev "/dev/ttyUSB2"
+#define tty_dev "/dev/ttyUSB1"
 
 char buf[8];
 

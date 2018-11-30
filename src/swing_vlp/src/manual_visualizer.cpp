@@ -69,7 +69,7 @@ int main(int argc, char** argv){
     	viewer->setBackgroundColor( 0.0, 0.0, 0.0, 0 );
 	viewer->addCoordinateSystem( 5.0  ,"coordinate" );
     	viewer->initCameraParameters();
-    	viewer->setCameraPosition( 500.0, 0.0, 80000.0, 0.0, 0.0, 0.0, 0 );
+    	viewer->setCameraPosition( 50.0, 0.0, 80.0, 0.0, 0.0, 0.0, 0 );
 
         boost::shared_ptr<pcl::visualization::PointCloudColorHandlerGenericField<PointType> > color_handler( new pcl::visualization::PointCloudColorHandlerGenericField<PointType>( "z" ) );
 
@@ -106,9 +106,9 @@ int main(int argc, char** argv){
         pass_y.filter (*filtered_cloud2);*/
 
 	*filtered_cloud2=*filtered_cloud;
-	for(int i=0;i<filtered_cloud->points.size();i++){
+	/*for(int i=0;i<filtered_cloud->points.size();i++){
 		filtered_cloud2->points[i].z=filtered_cloud->points[i].z+5000;
-	}
+		}*/
 
 	std::cout<<"Shift+click two points"<<std::endl;
 

@@ -20,7 +20,7 @@
 #include <pcl/filters/voxel_grid.h>
 
 typedef pcl::PointXYZRGB PointType;
-#define VOX_SIZE 100
+#define VOX_SIZE 0.1
 
 pcl::PointCloud<pcl::PointXYZI> voxel_grid(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud){
 	pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_filtered (new pcl::PointCloud<pcl::PointXYZI>);

@@ -37,6 +37,8 @@ pcl/visualization/pcl_visualizer.h
 -
 pcl/filters/passthrough.h
 -
+pcl/visualization/common/common.h
+-
 
 /opt/ros/kinetic/include/pcl_conversions/pcl_conversions.h
 vector
