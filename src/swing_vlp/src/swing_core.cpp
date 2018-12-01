@@ -38,13 +38,6 @@ TeleopJoy::TeleopJoy():
 		vrt_pd(3)//initialize
 		
 {
-	/*nh.param("axis_linear"  , vel_linear , vel_linear); //set parameter
-	nh.param("axis_angular" , vel_angular, vel_angular);
-	nh.param("angular_boost" , ang_boost, ang_boost);
-	nh.param("linear_boost" , lin_boost, lin_boost);
-	nh.param("scale_angular", a_scale_, a_scale_);
-	nh.param("scale_linear" , l_scale_, l_scale_);*/
-
 	//subsucriber,use template
         //this pointa is object pointa
 	joy_sub_ = nh.subscribe<sensor_msgs::Joy>("joy", 10, &TeleopJoy::joyCallback, this);

@@ -93,12 +93,6 @@ void callback(const  sensor_msgs::PointCloud2& msg){
 		//pass.setFilterLimitsNegative(true);
 		pass.filter (*filtered_cloud);
 
-		// Update Point Cloud (Viewewr)
-		handler->setInputCloud(filtered_cloud);
-		if( !viewer->updatePointCloud( filtered_cloud, *handler, "trcloud" ) ){
-			viewer->addPointCloud( filtered_cloud, *handler, "trcloud" );
-			}*/
-
 		//create z filtering object
 		pcl::PassThrough<pcl::PointXYZI> pass_z;
 		pass_z.setInputCloud (vizClouds);
