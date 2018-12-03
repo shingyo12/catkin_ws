@@ -147,6 +147,8 @@ include_directories(
 add_executable(usb_cycle  src/usb_cycle.cpp)
 add_executable(usb_gps  src/usb_gps.cpp)
 add_executable(usb_gps_js  src/usb_gps_js.cpp)
+add_executable(usb_gps0_js  src/usb_gps0_js.cpp)
+add_executable(usb_gps1_js  src/usb_gps1_js.cpp)
 add_executable(vlp_pcd  src/vlp_pcd.cpp)
 
 add_executable(vlp_pcd_imu  src/vlp_pcd_imu.cpp)
@@ -167,6 +169,7 @@ add_executable(rr_icp  src/rr_icp.cpp)
 add_executable(usb_imu  src/usb_imu.cpp)
 add_executable(map_make  src/map_make.cpp)
 add_executable(swing_core  src/swing_core.cpp)
+add_executable(pose  src/pose.cpp)
 
 set(MIN_CUDA_SRC
   src/gpu/vlp_gpu.cpp
@@ -195,6 +198,8 @@ cuda_add_executable(vlp_gpu
 target_link_libraries(usb_cycle   ${catkin_LIBRARIES})
 target_link_libraries(usb_gps   ${catkin_LIBRARIES})
 target_link_libraries(usb_gps_js  ${catkin_LIBRARIES})
+target_link_libraries(usb_gps0_js  ${catkin_LIBRARIES})
+target_link_libraries(usb_gps1_js  ${catkin_LIBRARIES})
 target_link_libraries(vlp_pcd  ${catkin_LIBRARIES})
 
 target_link_libraries(vlp_pcd_imu   ${catkin_LIBRARIES})
@@ -216,6 +221,7 @@ target_link_libraries(usb_imu   ${catkin_LIBRARIES})
 target_link_libraries(map_make   ${catkin_LIBRARIES})
 target_link_libraries(vlp_gpu   ${catkin_LIBRARIES})
 target_link_libraries(swing_core   ${catkin_LIBRARIES})
+target_link_libraries(pose   ${catkin_LIBRARIES})
 
 #############
 ## Install ##

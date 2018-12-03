@@ -213,6 +213,14 @@ void gps_callback(const  geometry_msgs::Pose& mgs){
 	sensor_pos.y=mgs.position.x;
 }
 
+void pose_callback(const  std_msgs::Float64MultiArray& pose){
+	sensor_pos.x = pose.data[0];
+	sensor_pos.y = pose.data[1];
+	imu.y        = -pose.data[3];
+	imu.p        = -pose.data[4];
+	imu.r        = -pose.data[5];
+}
+
 void imu_coodinate_trans(struct dots *q,int i,int j){
 	//using imu
 	double cosY=cos(imu.y);
@@ -415,6 +423,7 @@ void receiveLRF(void *arg){
 	ros::Subscriber sub1 = nh.subscribe("imu_pose",10,imu_callback);
 	ros::Subscriber sub2 = nh.subscribe("cmd_ctrl",10,js_callback);
 	ros::Subscriber sub3 = nh.subscribe("gps",10,gps_callback);
+	ros::Subscriber sub4 = nh.subscribe("pose",10,pose_callback);
 	sensor_msgs::PointCloud2 point2;
 	std_msgs::Float64 msg;
 

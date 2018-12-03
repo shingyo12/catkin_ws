@@ -138,7 +138,7 @@ int main(int argc, char **argv){
 			//yaw += 0.0;
 			*/
 
-			imu_pose.data[0]=data[3]*M_PI/180; //yaw
+			imu_pose.data[0]=(data[4]+7.39)*M_PI/180; //yaw
 			imu_pose.data[1]=data[2]*M_PI/180; //pitch
 			imu_pose.data[2]=data[1]*M_PI/180; //roll
 			

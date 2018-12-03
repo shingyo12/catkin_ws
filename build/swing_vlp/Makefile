@@ -168,6 +168,21 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+swing_vlp/CMakeFiles/swing_core.dir/rule:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 swing_vlp/CMakeFiles/swing_core.dir/rule
+.PHONY : swing_vlp/CMakeFiles/swing_core.dir/rule
+
+# Convenience name for target.
+swing_core: swing_vlp/CMakeFiles/swing_core.dir/rule
+
+.PHONY : swing_core
+
+# fast build rule for target.
+swing_core/fast:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/swing_core.dir/build.make swing_vlp/CMakeFiles/swing_core.dir/build
+.PHONY : swing_core/fast
+
+# Convenience name for target.
 swing_vlp/CMakeFiles/pcd_record.dir/rule:
 	cd /home/nvidia/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 swing_vlp/CMakeFiles/pcd_record.dir/rule
 .PHONY : swing_vlp/CMakeFiles/pcd_record.dir/rule
@@ -213,21 +228,6 @@ sub_pcl_visualizer/fast:
 .PHONY : sub_pcl_visualizer/fast
 
 # Convenience name for target.
-swing_vlp/CMakeFiles/manual_icp2.dir/rule:
-	cd /home/nvidia/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 swing_vlp/CMakeFiles/manual_icp2.dir/rule
-.PHONY : swing_vlp/CMakeFiles/manual_icp2.dir/rule
-
-# Convenience name for target.
-manual_icp2: swing_vlp/CMakeFiles/manual_icp2.dir/rule
-
-.PHONY : manual_icp2
-
-# fast build rule for target.
-manual_icp2/fast:
-	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/manual_icp2.dir/build.make swing_vlp/CMakeFiles/manual_icp2.dir/build
-.PHONY : manual_icp2/fast
-
-# Convenience name for target.
 swing_vlp/CMakeFiles/vlp_gpu.dir/rule:
 	cd /home/nvidia/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 swing_vlp/CMakeFiles/vlp_gpu.dir/rule
 .PHONY : swing_vlp/CMakeFiles/vlp_gpu.dir/rule
@@ -258,19 +258,49 @@ vlp_pcd_imu/fast:
 .PHONY : vlp_pcd_imu/fast
 
 # Convenience name for target.
-swing_vlp/CMakeFiles/manual_icp.dir/rule:
-	cd /home/nvidia/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 swing_vlp/CMakeFiles/manual_icp.dir/rule
-.PHONY : swing_vlp/CMakeFiles/manual_icp.dir/rule
+swing_vlp/CMakeFiles/usb_gps1_js.dir/rule:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 swing_vlp/CMakeFiles/usb_gps1_js.dir/rule
+.PHONY : swing_vlp/CMakeFiles/usb_gps1_js.dir/rule
 
 # Convenience name for target.
-manual_icp: swing_vlp/CMakeFiles/manual_icp.dir/rule
+usb_gps1_js: swing_vlp/CMakeFiles/usb_gps1_js.dir/rule
 
-.PHONY : manual_icp
+.PHONY : usb_gps1_js
 
 # fast build rule for target.
-manual_icp/fast:
-	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/manual_icp.dir/build.make swing_vlp/CMakeFiles/manual_icp.dir/build
-.PHONY : manual_icp/fast
+usb_gps1_js/fast:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/usb_gps1_js.dir/build.make swing_vlp/CMakeFiles/usb_gps1_js.dir/build
+.PHONY : usb_gps1_js/fast
+
+# Convenience name for target.
+swing_vlp/CMakeFiles/usb_gps0_js.dir/rule:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 swing_vlp/CMakeFiles/usb_gps0_js.dir/rule
+.PHONY : swing_vlp/CMakeFiles/usb_gps0_js.dir/rule
+
+# Convenience name for target.
+usb_gps0_js: swing_vlp/CMakeFiles/usb_gps0_js.dir/rule
+
+.PHONY : usb_gps0_js
+
+# fast build rule for target.
+usb_gps0_js/fast:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/usb_gps0_js.dir/build.make swing_vlp/CMakeFiles/usb_gps0_js.dir/build
+.PHONY : usb_gps0_js/fast
+
+# Convenience name for target.
+swing_vlp/CMakeFiles/pose.dir/rule:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 swing_vlp/CMakeFiles/pose.dir/rule
+.PHONY : swing_vlp/CMakeFiles/pose.dir/rule
+
+# Convenience name for target.
+pose: swing_vlp/CMakeFiles/pose.dir/rule
+
+.PHONY : pose
+
+# fast build rule for target.
+pose/fast:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/pose.dir/build.make swing_vlp/CMakeFiles/pose.dir/build
+.PHONY : pose/fast
 
 # Convenience name for target.
 swing_vlp/CMakeFiles/usb_gps_js.dir/rule:
@@ -288,6 +318,36 @@ usb_gps_js/fast:
 .PHONY : usb_gps_js/fast
 
 # Convenience name for target.
+swing_vlp/CMakeFiles/manual_icp.dir/rule:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 swing_vlp/CMakeFiles/manual_icp.dir/rule
+.PHONY : swing_vlp/CMakeFiles/manual_icp.dir/rule
+
+# Convenience name for target.
+manual_icp: swing_vlp/CMakeFiles/manual_icp.dir/rule
+
+.PHONY : manual_icp
+
+# fast build rule for target.
+manual_icp/fast:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/manual_icp.dir/build.make swing_vlp/CMakeFiles/manual_icp.dir/build
+.PHONY : manual_icp/fast
+
+# Convenience name for target.
+swing_vlp/CMakeFiles/manual_icp2.dir/rule:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 swing_vlp/CMakeFiles/manual_icp2.dir/rule
+.PHONY : swing_vlp/CMakeFiles/manual_icp2.dir/rule
+
+# Convenience name for target.
+manual_icp2: swing_vlp/CMakeFiles/manual_icp2.dir/rule
+
+.PHONY : manual_icp2
+
+# fast build rule for target.
+manual_icp2/fast:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/manual_icp2.dir/build.make swing_vlp/CMakeFiles/manual_icp2.dir/build
+.PHONY : manual_icp2/fast
+
+# Convenience name for target.
 swing_vlp/CMakeFiles/manual_visualizer.dir/rule:
 	cd /home/nvidia/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 swing_vlp/CMakeFiles/manual_visualizer.dir/rule
 .PHONY : swing_vlp/CMakeFiles/manual_visualizer.dir/rule
@@ -303,21 +363,6 @@ manual_visualizer/fast:
 .PHONY : manual_visualizer/fast
 
 # Convenience name for target.
-swing_vlp/CMakeFiles/manual_icp_multi.dir/rule:
-	cd /home/nvidia/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 swing_vlp/CMakeFiles/manual_icp_multi.dir/rule
-.PHONY : swing_vlp/CMakeFiles/manual_icp_multi.dir/rule
-
-# Convenience name for target.
-manual_icp_multi: swing_vlp/CMakeFiles/manual_icp_multi.dir/rule
-
-.PHONY : manual_icp_multi
-
-# fast build rule for target.
-manual_icp_multi/fast:
-	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/manual_icp_multi.dir/build.make swing_vlp/CMakeFiles/manual_icp_multi.dir/build
-.PHONY : manual_icp_multi/fast
-
-# Convenience name for target.
 swing_vlp/CMakeFiles/vlp_pcd.dir/rule:
 	cd /home/nvidia/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 swing_vlp/CMakeFiles/vlp_pcd.dir/rule
 .PHONY : swing_vlp/CMakeFiles/vlp_pcd.dir/rule
@@ -331,6 +376,21 @@ vlp_pcd: swing_vlp/CMakeFiles/vlp_pcd.dir/rule
 vlp_pcd/fast:
 	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/vlp_pcd.dir/build.make swing_vlp/CMakeFiles/vlp_pcd.dir/build
 .PHONY : vlp_pcd/fast
+
+# Convenience name for target.
+swing_vlp/CMakeFiles/manual_icp_multi.dir/rule:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 swing_vlp/CMakeFiles/manual_icp_multi.dir/rule
+.PHONY : swing_vlp/CMakeFiles/manual_icp_multi.dir/rule
+
+# Convenience name for target.
+manual_icp_multi: swing_vlp/CMakeFiles/manual_icp_multi.dir/rule
+
+.PHONY : manual_icp_multi
+
+# fast build rule for target.
+manual_icp_multi/fast:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/manual_icp_multi.dir/build.make swing_vlp/CMakeFiles/manual_icp_multi.dir/build
+.PHONY : manual_icp_multi/fast
 
 # Convenience name for target.
 swing_vlp/CMakeFiles/rr_icp.dir/rule:
@@ -496,21 +556,6 @@ usb_imu: swing_vlp/CMakeFiles/usb_imu.dir/rule
 usb_imu/fast:
 	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/usb_imu.dir/build.make swing_vlp/CMakeFiles/usb_imu.dir/build
 .PHONY : usb_imu/fast
-
-# Convenience name for target.
-swing_vlp/CMakeFiles/swing_core.dir/rule:
-	cd /home/nvidia/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 swing_vlp/CMakeFiles/swing_core.dir/rule
-.PHONY : swing_vlp/CMakeFiles/swing_core.dir/rule
-
-# Convenience name for target.
-swing_core: swing_vlp/CMakeFiles/swing_core.dir/rule
-
-.PHONY : swing_core
-
-# fast build rule for target.
-swing_core/fast:
-	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/swing_core.dir/build.make swing_vlp/CMakeFiles/swing_core.dir/build
-.PHONY : swing_core/fast
 
 src/gpu/vlp_gpu.o: src/gpu/vlp_gpu.cpp.o
 
@@ -890,6 +935,33 @@ src/pcd_record.cpp.s:
 	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/pcd_record.dir/build.make swing_vlp/CMakeFiles/pcd_record.dir/src/pcd_record.cpp.s
 .PHONY : src/pcd_record.cpp.s
 
+src/pose.o: src/pose.cpp.o
+
+.PHONY : src/pose.o
+
+# target to build an object file
+src/pose.cpp.o:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/pose.dir/build.make swing_vlp/CMakeFiles/pose.dir/src/pose.cpp.o
+.PHONY : src/pose.cpp.o
+
+src/pose.i: src/pose.cpp.i
+
+.PHONY : src/pose.i
+
+# target to preprocess a source file
+src/pose.cpp.i:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/pose.dir/build.make swing_vlp/CMakeFiles/pose.dir/src/pose.cpp.i
+.PHONY : src/pose.cpp.i
+
+src/pose.s: src/pose.cpp.s
+
+.PHONY : src/pose.s
+
+# target to generate assembly for a file
+src/pose.cpp.s:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/pose.dir/build.make swing_vlp/CMakeFiles/pose.dir/src/pose.cpp.s
+.PHONY : src/pose.cpp.s
+
 src/rr_icp.o: src/rr_icp.cpp.o
 
 .PHONY : src/rr_icp.o
@@ -1025,6 +1097,60 @@ src/usb_gps.cpp.s:
 	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/usb_gps.dir/build.make swing_vlp/CMakeFiles/usb_gps.dir/src/usb_gps.cpp.s
 .PHONY : src/usb_gps.cpp.s
 
+src/usb_gps0_js.o: src/usb_gps0_js.cpp.o
+
+.PHONY : src/usb_gps0_js.o
+
+# target to build an object file
+src/usb_gps0_js.cpp.o:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/usb_gps0_js.dir/build.make swing_vlp/CMakeFiles/usb_gps0_js.dir/src/usb_gps0_js.cpp.o
+.PHONY : src/usb_gps0_js.cpp.o
+
+src/usb_gps0_js.i: src/usb_gps0_js.cpp.i
+
+.PHONY : src/usb_gps0_js.i
+
+# target to preprocess a source file
+src/usb_gps0_js.cpp.i:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/usb_gps0_js.dir/build.make swing_vlp/CMakeFiles/usb_gps0_js.dir/src/usb_gps0_js.cpp.i
+.PHONY : src/usb_gps0_js.cpp.i
+
+src/usb_gps0_js.s: src/usb_gps0_js.cpp.s
+
+.PHONY : src/usb_gps0_js.s
+
+# target to generate assembly for a file
+src/usb_gps0_js.cpp.s:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/usb_gps0_js.dir/build.make swing_vlp/CMakeFiles/usb_gps0_js.dir/src/usb_gps0_js.cpp.s
+.PHONY : src/usb_gps0_js.cpp.s
+
+src/usb_gps1_js.o: src/usb_gps1_js.cpp.o
+
+.PHONY : src/usb_gps1_js.o
+
+# target to build an object file
+src/usb_gps1_js.cpp.o:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/usb_gps1_js.dir/build.make swing_vlp/CMakeFiles/usb_gps1_js.dir/src/usb_gps1_js.cpp.o
+.PHONY : src/usb_gps1_js.cpp.o
+
+src/usb_gps1_js.i: src/usb_gps1_js.cpp.i
+
+.PHONY : src/usb_gps1_js.i
+
+# target to preprocess a source file
+src/usb_gps1_js.cpp.i:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/usb_gps1_js.dir/build.make swing_vlp/CMakeFiles/usb_gps1_js.dir/src/usb_gps1_js.cpp.i
+.PHONY : src/usb_gps1_js.cpp.i
+
+src/usb_gps1_js.s: src/usb_gps1_js.cpp.s
+
+.PHONY : src/usb_gps1_js.s
+
+# target to generate assembly for a file
+src/usb_gps1_js.cpp.s:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/usb_gps1_js.dir/build.make swing_vlp/CMakeFiles/usb_gps1_js.dir/src/usb_gps1_js.cpp.s
+.PHONY : src/usb_gps1_js.cpp.s
+
 src/usb_gps_js.o: src/usb_gps_js.cpp.o
 
 .PHONY : src/usb_gps_js.o
@@ -1144,17 +1270,21 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... swing_core"
 	@echo "... pcd_record"
 	@echo "... usb_gps"
 	@echo "... sub_pcl_visualizer"
-	@echo "... manual_icp2"
 	@echo "... vlp_gpu"
 	@echo "... vlp_pcd_imu"
-	@echo "... manual_icp"
+	@echo "... usb_gps1_js"
+	@echo "... usb_gps0_js"
+	@echo "... pose"
 	@echo "... usb_gps_js"
+	@echo "... manual_icp"
+	@echo "... manual_icp2"
 	@echo "... manual_visualizer"
-	@echo "... manual_icp_multi"
 	@echo "... vlp_pcd"
+	@echo "... manual_icp_multi"
 	@echo "... rr_icp"
 	@echo "... manual_visualizer2"
 	@echo "... manual_filter"
@@ -1168,7 +1298,6 @@ help:
 	@echo "... install/local"
 	@echo "... map_make"
 	@echo "... usb_imu"
-	@echo "... swing_core"
 	@echo "... src/gpu/vlp_gpu.o"
 	@echo "... src/gpu/vlp_gpu.i"
 	@echo "... src/gpu/vlp_gpu.s"
@@ -1211,6 +1340,9 @@ help:
 	@echo "... src/pcd_record.o"
 	@echo "... src/pcd_record.i"
 	@echo "... src/pcd_record.s"
+	@echo "... src/pose.o"
+	@echo "... src/pose.i"
+	@echo "... src/pose.s"
 	@echo "... src/rr_icp.o"
 	@echo "... src/rr_icp.i"
 	@echo "... src/rr_icp.s"
@@ -1226,6 +1358,12 @@ help:
 	@echo "... src/usb_gps.o"
 	@echo "... src/usb_gps.i"
 	@echo "... src/usb_gps.s"
+	@echo "... src/usb_gps0_js.o"
+	@echo "... src/usb_gps0_js.i"
+	@echo "... src/usb_gps0_js.s"
+	@echo "... src/usb_gps1_js.o"
+	@echo "... src/usb_gps1_js.i"
+	@echo "... src/usb_gps1_js.s"
 	@echo "... src/usb_gps_js.o"
 	@echo "... src/usb_gps_js.i"
 	@echo "... src/usb_gps_js.s"

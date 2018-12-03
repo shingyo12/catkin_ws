@@ -1338,6 +1338,19 @@ hello/fast:
 .PHONY : hello/fast
 
 #=============================================================================
+# Target rules for targets named swing_core
+
+# Build rule for target.
+swing_core: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 swing_core
+.PHONY : swing_core
+
+# fast build rule for target.
+swing_core/fast:
+	$(MAKE) -f swing_vlp/CMakeFiles/swing_core.dir/build.make swing_vlp/CMakeFiles/swing_core.dir/build
+.PHONY : swing_core/fast
+
+#=============================================================================
 # Target rules for targets named pcd_record
 
 # Build rule for target.
@@ -1377,19 +1390,6 @@ sub_pcl_visualizer/fast:
 .PHONY : sub_pcl_visualizer/fast
 
 #=============================================================================
-# Target rules for targets named manual_icp2
-
-# Build rule for target.
-manual_icp2: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 manual_icp2
-.PHONY : manual_icp2
-
-# fast build rule for target.
-manual_icp2/fast:
-	$(MAKE) -f swing_vlp/CMakeFiles/manual_icp2.dir/build.make swing_vlp/CMakeFiles/manual_icp2.dir/build
-.PHONY : manual_icp2/fast
-
-#=============================================================================
 # Target rules for targets named vlp_gpu
 
 # Build rule for target.
@@ -1416,17 +1416,43 @@ vlp_pcd_imu/fast:
 .PHONY : vlp_pcd_imu/fast
 
 #=============================================================================
-# Target rules for targets named manual_icp
+# Target rules for targets named usb_gps1_js
 
 # Build rule for target.
-manual_icp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 manual_icp
-.PHONY : manual_icp
+usb_gps1_js: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 usb_gps1_js
+.PHONY : usb_gps1_js
 
 # fast build rule for target.
-manual_icp/fast:
-	$(MAKE) -f swing_vlp/CMakeFiles/manual_icp.dir/build.make swing_vlp/CMakeFiles/manual_icp.dir/build
-.PHONY : manual_icp/fast
+usb_gps1_js/fast:
+	$(MAKE) -f swing_vlp/CMakeFiles/usb_gps1_js.dir/build.make swing_vlp/CMakeFiles/usb_gps1_js.dir/build
+.PHONY : usb_gps1_js/fast
+
+#=============================================================================
+# Target rules for targets named usb_gps0_js
+
+# Build rule for target.
+usb_gps0_js: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 usb_gps0_js
+.PHONY : usb_gps0_js
+
+# fast build rule for target.
+usb_gps0_js/fast:
+	$(MAKE) -f swing_vlp/CMakeFiles/usb_gps0_js.dir/build.make swing_vlp/CMakeFiles/usb_gps0_js.dir/build
+.PHONY : usb_gps0_js/fast
+
+#=============================================================================
+# Target rules for targets named pose
+
+# Build rule for target.
+pose: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pose
+.PHONY : pose
+
+# fast build rule for target.
+pose/fast:
+	$(MAKE) -f swing_vlp/CMakeFiles/pose.dir/build.make swing_vlp/CMakeFiles/pose.dir/build
+.PHONY : pose/fast
 
 #=============================================================================
 # Target rules for targets named usb_gps_js
@@ -1442,6 +1468,32 @@ usb_gps_js/fast:
 .PHONY : usb_gps_js/fast
 
 #=============================================================================
+# Target rules for targets named manual_icp
+
+# Build rule for target.
+manual_icp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 manual_icp
+.PHONY : manual_icp
+
+# fast build rule for target.
+manual_icp/fast:
+	$(MAKE) -f swing_vlp/CMakeFiles/manual_icp.dir/build.make swing_vlp/CMakeFiles/manual_icp.dir/build
+.PHONY : manual_icp/fast
+
+#=============================================================================
+# Target rules for targets named manual_icp2
+
+# Build rule for target.
+manual_icp2: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 manual_icp2
+.PHONY : manual_icp2
+
+# fast build rule for target.
+manual_icp2/fast:
+	$(MAKE) -f swing_vlp/CMakeFiles/manual_icp2.dir/build.make swing_vlp/CMakeFiles/manual_icp2.dir/build
+.PHONY : manual_icp2/fast
+
+#=============================================================================
 # Target rules for targets named manual_visualizer
 
 # Build rule for target.
@@ -1455,19 +1507,6 @@ manual_visualizer/fast:
 .PHONY : manual_visualizer/fast
 
 #=============================================================================
-# Target rules for targets named manual_icp_multi
-
-# Build rule for target.
-manual_icp_multi: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 manual_icp_multi
-.PHONY : manual_icp_multi
-
-# fast build rule for target.
-manual_icp_multi/fast:
-	$(MAKE) -f swing_vlp/CMakeFiles/manual_icp_multi.dir/build.make swing_vlp/CMakeFiles/manual_icp_multi.dir/build
-.PHONY : manual_icp_multi/fast
-
-#=============================================================================
 # Target rules for targets named vlp_pcd
 
 # Build rule for target.
@@ -1479,6 +1518,19 @@ vlp_pcd: cmake_check_build_system
 vlp_pcd/fast:
 	$(MAKE) -f swing_vlp/CMakeFiles/vlp_pcd.dir/build.make swing_vlp/CMakeFiles/vlp_pcd.dir/build
 .PHONY : vlp_pcd/fast
+
+#=============================================================================
+# Target rules for targets named manual_icp_multi
+
+# Build rule for target.
+manual_icp_multi: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 manual_icp_multi
+.PHONY : manual_icp_multi
+
+# fast build rule for target.
+manual_icp_multi/fast:
+	$(MAKE) -f swing_vlp/CMakeFiles/manual_icp_multi.dir/build.make swing_vlp/CMakeFiles/manual_icp_multi.dir/build
+.PHONY : manual_icp_multi/fast
 
 #=============================================================================
 # Target rules for targets named rr_icp
@@ -1622,19 +1674,6 @@ usb_imu: cmake_check_build_system
 usb_imu/fast:
 	$(MAKE) -f swing_vlp/CMakeFiles/usb_imu.dir/build.make swing_vlp/CMakeFiles/usb_imu.dir/build
 .PHONY : usb_imu/fast
-
-#=============================================================================
-# Target rules for targets named swing_core
-
-# Build rule for target.
-swing_core: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 swing_core
-.PHONY : swing_core
-
-# fast build rule for target.
-swing_core/fast:
-	$(MAKE) -f swing_vlp/CMakeFiles/swing_core.dir/build.make swing_vlp/CMakeFiles/swing_core.dir/build
-.PHONY : swing_core/fast
 
 #=============================================================================
 # Target rules for targets named map_make_mm
@@ -3455,17 +3494,21 @@ help:
 	@echo "... nodelet_generate_messages_eus"
 	@echo "... bond_generate_messages_nodejs"
 	@echo "... hello"
+	@echo "... swing_core"
 	@echo "... pcd_record"
 	@echo "... usb_gps"
 	@echo "... sub_pcl_visualizer"
-	@echo "... manual_icp2"
 	@echo "... vlp_gpu"
 	@echo "... vlp_pcd_imu"
-	@echo "... manual_icp"
+	@echo "... usb_gps1_js"
+	@echo "... usb_gps0_js"
+	@echo "... pose"
 	@echo "... usb_gps_js"
+	@echo "... manual_icp"
+	@echo "... manual_icp2"
 	@echo "... manual_visualizer"
-	@echo "... manual_icp_multi"
 	@echo "... vlp_pcd"
+	@echo "... manual_icp_multi"
 	@echo "... rr_icp"
 	@echo "... manual_visualizer2"
 	@echo "... manual_filter"
@@ -3477,7 +3520,6 @@ help:
 	@echo "... manual_vgf"
 	@echo "... map_make"
 	@echo "... usb_imu"
-	@echo "... swing_core"
 	@echo "... map_make_mm"
 	@echo "... usb_imu_mm"
 	@echo "... manual_filter_mm"

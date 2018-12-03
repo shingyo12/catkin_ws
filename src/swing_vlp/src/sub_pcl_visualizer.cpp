@@ -107,7 +107,7 @@ void callback(const  sensor_msgs::PointCloud2& msg){
 		pass_y.setFilterFieldName ("y");
 		pass_y.setFilterLimits (-500,500); //2600
 		//pass.setFilterLimitsNegative(true);
-		pass_y.filter (*filtered_cloud2);
+		pass_y.filter (*filtered_cloud2); */
 
 		// Update Point Cloud (Viewewr)
 		handler->setInputCloud(filtered_cloud);
