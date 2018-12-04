@@ -86,7 +86,7 @@ void callback(const  sensor_msgs::PointCloud2& msg){
 	}
 	if(total>10){
 		//create filtering object
-		/*pcl::PassThrough<pcl::PointXYZI> pass;
+		pcl::PassThrough<pcl::PointXYZI> pass;
  		pass.setInputCloud (vizClouds);
 		pass.setFilterFieldName ("z");
 		pass.setFilterLimits (-2000,20000); //2600
@@ -107,7 +107,7 @@ void callback(const  sensor_msgs::PointCloud2& msg){
 		pass_y.setFilterFieldName ("y");
 		pass_y.setFilterLimits (-500,500); //2600
 		//pass.setFilterLimitsNegative(true);
-		pass_y.filter (*filtered_cloud2); */
+		pass_y.filter (*filtered_cloud2); 
 
 		// Update Point Cloud (Viewewr)
 		handler->setInputCloud(filtered_cloud);

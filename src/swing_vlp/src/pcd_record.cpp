@@ -44,10 +44,10 @@ void js_callback(const  std_msgs::Float32MultiArray& cmd_ctrl){
 	//printf("callback\n");
 	std::cout<<"[0]"<<(int)cmd_ctrl.data[0]<<" [1]"<<(int)cmd_ctrl.data[1]<<" [2]"<<(int)cmd_ctrl.data[2]
 		 <<" [3]"<<(int)cmd_ctrl.data[3]<<" [4]"<<(int)cmd_ctrl.data[4]<<" [5]"<<(int)cmd_ctrl.data[5]<<std::endl;
-	if((int)cmd_ctrl.data[0] == 1){
+	if((int)cmd_ctrl.data[0] > 0){
 		start_flg = 1;
 	}
-	if((int)cmd_ctrl.data[1] == 1){
+	if((int)cmd_ctrl.data[1] > 0){
 		start_flg = 0;
 	}
 }
