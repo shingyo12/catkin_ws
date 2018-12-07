@@ -122,14 +122,10 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/nvidia/catkin_ws/build/gtest/cmake_install.cmake")
-  include("/home/nvidia/catkin_ws/build/ublox/cmake_install.cmake")
   include("/home/nvidia/catkin_ws/build/emcip_test/cmake_install.cmake")
   include("/home/nvidia/catkin_ws/build/sample/cmake_install.cmake")
   include("/home/nvidia/catkin_ws/build/swing_vlp/cmake_install.cmake")
   include("/home/nvidia/catkin_ws/build/ros_vlp/cmake_install.cmake")
-  include("/home/nvidia/catkin_ws/build/ublox_serialization/cmake_install.cmake")
-  include("/home/nvidia/catkin_ws/build/ublox_msgs/cmake_install.cmake")
-  include("/home/nvidia/catkin_ws/build/ublox_gps/cmake_install.cmake")
 
 endif()
 

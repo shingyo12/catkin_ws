@@ -14,6 +14,7 @@
 #include <pcl_ros/point_cloud.h>
 #include <pcl_conversions/pcl_conversions.h>
 #include <std_msgs/Float32MultiArray.h>
+#include <std_msgs/Float64MultiArray.h>
 
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
@@ -21,7 +22,7 @@
 #include <pcl/visualization/pcl_visualizer.h>
 #include <pcl/io/pcd_io.h>
 
-#define NoM 10 //Number of Measurement (rotational number of laser element in LIDAR)
+#define NoM 20 //Number of Measurement (rotational number of laser element in LIDAR)
 
 sensor_msgs::PointCloud2 PointCloud;
 typedef pcl::PointXYZI PointType;
@@ -30,6 +31,7 @@ typedef pcl::PointXYZI PointType;
 struct position {
 	double x;
 	double y;
+	double z;
 };
 
 position sensor_pos;
@@ -52,9 +54,10 @@ void js_callback(const  std_msgs::Float32MultiArray& cmd_ctrl){
 	}
 }
 
-void gps_callback(const  geometry_msgs::Pose& mgs){
-	sensor_pos.x=mgs.position.y;
-	sensor_pos.y=mgs.position.x;
+void pose_callback(const std_msgs::Float64MultiArray& pose){
+	sensor_pos.x=pose.data[0];
+	sensor_pos.y=pose.data[1];
+	sensor_pos.z=pose.data[2];
 	gps_flg=1;
 }
 
@@ -77,12 +80,15 @@ void pcd_callback(const  sensor_msgs::PointCloud2& msg){
 		}
 		if(total>NoM){
 			printf("total %d\n",total);
+
 			//man_x=sensor_pos.x;
 			//man_y=sensor_pos.y;
 			printf("sensor pos\n");
+			
 			for(int r=0;r<push_cloud->width*push_cloud->height;++r){	 
-				push_cloud->points[r].x=push_cloud->points[r].x+sensor_pos.x;
-				push_cloud->points[r].y=push_cloud->points[r].y+sensor_pos.y;
+				push_cloud->points[r].x=push_cloud->points[r].x-sensor_pos.y;
+				push_cloud->points[r].y=push_cloud->points[r].y+sensor_pos.x;
+				push_cloud->points[r].z=push_cloud->points[r].z+sensor_pos.z;
 			}
 		
 			//ix=(int)man_x;
@@ -125,7 +131,7 @@ int main(int argc, char **argv){
 	ros::NodeHandle nh;
 	sensor_msgs::PointCloud2 point2;
 	ros::Subscriber sub0 = nh.subscribe("cmd_ctrl",1,js_callback);
-	ros::Subscriber sub1 = nh.subscribe("gps",1,gps_callback);
+	ros::Subscriber sub1 = nh.subscribe("pose",1,pose_callback);
 	ros::Subscriber sub2 = nh.subscribe("point2",1,pcd_callback);
 	/*while(ros::ok()){
 		ros::spinOnce();

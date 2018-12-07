@@ -335,8 +335,12 @@ swing_vlp/CMakeFiles/manual_icp_multi.dir/src/manual_icp_multi.cpp.o: /usr/inclu
 swing_vlp/CMakeFiles/manual_icp_multi.dir/src/manual_icp_multi.cpp.o: /usr/include/pcl-1.7/pcl/exceptions.h
 swing_vlp/CMakeFiles/manual_icp_multi.dir/src/manual_icp_multi.cpp.o: /usr/include/pcl-1.7/pcl/filters/boost.h
 swing_vlp/CMakeFiles/manual_icp_multi.dir/src/manual_icp_multi.cpp.o: /usr/include/pcl-1.7/pcl/filters/filter.h
+swing_vlp/CMakeFiles/manual_icp_multi.dir/src/manual_icp_multi.cpp.o: /usr/include/pcl-1.7/pcl/filters/filter_indices.h
 swing_vlp/CMakeFiles/manual_icp_multi.dir/src/manual_icp_multi.cpp.o: /usr/include/pcl-1.7/pcl/filters/impl/filter.hpp
+swing_vlp/CMakeFiles/manual_icp_multi.dir/src/manual_icp_multi.cpp.o: /usr/include/pcl-1.7/pcl/filters/impl/filter_indices.hpp
+swing_vlp/CMakeFiles/manual_icp_multi.dir/src/manual_icp_multi.cpp.o: /usr/include/pcl-1.7/pcl/filters/impl/passthrough.hpp
 swing_vlp/CMakeFiles/manual_icp_multi.dir/src/manual_icp_multi.cpp.o: /usr/include/pcl-1.7/pcl/filters/impl/voxel_grid.hpp
+swing_vlp/CMakeFiles/manual_icp_multi.dir/src/manual_icp_multi.cpp.o: /usr/include/pcl-1.7/pcl/filters/passthrough.h
 swing_vlp/CMakeFiles/manual_icp_multi.dir/src/manual_icp_multi.cpp.o: /usr/include/pcl-1.7/pcl/filters/voxel_grid.h
 swing_vlp/CMakeFiles/manual_icp_multi.dir/src/manual_icp_multi.cpp.o: /usr/include/pcl-1.7/pcl/for_each_type.h
 swing_vlp/CMakeFiles/manual_icp_multi.dir/src/manual_icp_multi.cpp.o: /usr/include/pcl-1.7/pcl/geometry/planar_polygon.h

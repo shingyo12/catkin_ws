@@ -13,7 +13,7 @@
 #include <pcl/filters/voxel_grid.h>
 //#include "pcl/cuda/filters/include/pcl/cuda/filters/voxel_grid.h"
 
-#define VOX_SIZE 100
+#define VOX_SIZE 0.3
 
 pcl::PointCloud<pcl::PointXYZI> voxel_grid(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud){
 	pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_filtered (new pcl::PointCloud<pcl::PointXYZI>);

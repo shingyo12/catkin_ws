@@ -74,6 +74,7 @@ rpy imu;
 struct position {
 	double x;
 	double y;
+	double z;
 };
 position sensor_pos;
 
@@ -173,18 +174,6 @@ void messageCallBack(const std_msgs::Float64& msg){
 	test++;
 }
 
-void imu_callback(const  std_msgs::Float64MultiArray& imu_msgs){
-	//tf::Quaternion qtn(qtn_msgs.x,qtn_msgs.y,qtn_msgs.z,qtn_msgs.w);
-	//std::cout<<qtn<<std::endl;
-	//tf::Matrix3x3 m(qtn);
-	//m.getRPY(imu.r,imu.p,imu.y);
-	imu.y=-imu_msgs.data[0];
-	imu.p=-imu_msgs.data[2];
-	imu.r=-imu_msgs.data[1];
-	std::printf("r:%lf p:%lf y:%lf\n",imu.r,imu.p,imu.y);
-	//std::printf("%lf %lf %lf %lf\n",qtn_msgs.x,qtn_msgs.y,qtn_msgs.z,qtn_msgs.w);
-}
-
 void js_callback(const  std_msgs::Float32MultiArray& cmd_ctrl){
 	std::cout<<"[0]"<<(int)cmd_ctrl.data[0]<<" [1]"<<(int)cmd_ctrl.data[1]<<" [2]"<<(int)cmd_ctrl.data[2]
 		 <<" [3]"<<(int)cmd_ctrl.data[3]<<" [4]"<<(int)cmd_ctrl.data[4]<<" [5]"<<(int)cmd_ctrl.data[5]<<std::endl;
@@ -208,17 +197,14 @@ void js_callback(const  std_msgs::Float32MultiArray& cmd_ctrl){
 	}
 }
 
-void gps_callback(const  geometry_msgs::Pose& mgs){
-	sensor_pos.x=mgs.position.y;
-	sensor_pos.y=mgs.position.x;
-}
-
 void pose_callback(const  std_msgs::Float64MultiArray& pose){
 	sensor_pos.x = pose.data[0];
 	sensor_pos.y = pose.data[1];
+	sensor_pos.z = pose.data[2];
 	imu.y        = -pose.data[3];
 	imu.p        = -pose.data[4];
 	imu.r        = -pose.data[5];
+	printf("pose %lf %lf %lf %lf %lf %lf\n",sensor_pos.x,sensor_pos.y,sensor_pos.z,imu.y,imu.p,imu.r);
 }
 
 void imu_coodinate_trans(struct dots *q,int i,int j){
@@ -420,9 +406,7 @@ void receiveLRF(void *arg){
 	ros::NodeHandle nh;
 	ros::Subscriber sub = nh.subscribe("cycle",1,&messageCallBack);
 	ros::Publisher pub  = nh.advertise<sensor_msgs::PointCloud2>("point2",10);
-	ros::Subscriber sub1 = nh.subscribe("imu_pose",10,imu_callback);
 	ros::Subscriber sub2 = nh.subscribe("cmd_ctrl",10,js_callback);
-	ros::Subscriber sub3 = nh.subscribe("gps",10,gps_callback);
 	ros::Subscriber sub4 = nh.subscribe("pose",10,pose_callback);
 	sensor_msgs::PointCloud2 point2;
 	std_msgs::Float64 msg;
@@ -488,8 +472,8 @@ void receiveLRF(void *arg){
    			trcloud.height=16;
    			trcloud.is_dense=true;
    			trcloud.points.resize(trcloud.width*trcloud.height);
-			trcloud.sensor_orientation_.x()=sensor_pos.x;
-			trcloud.sensor_orientation_.y()=sensor_pos.y;
+			//trcloud.sensor_orientation_.x()=sensor_pos.x;
+			//trcloud.sensor_orientation_.y()=sensor_pos.y;
    			int j=0;
 			//std::cout<<"tr size "<<dn*2<<std::endl;
    			/*for(int r=0;r<dn*2-2;r++){

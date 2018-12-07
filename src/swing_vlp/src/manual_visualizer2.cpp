@@ -70,7 +70,7 @@ int main(int argc, char** argv){
     	viewer->setBackgroundColor( 0.0, 0.0, 0.0, 0 );
 	viewer->addCoordinateSystem( 5.0  ,"coordinate" );
     	viewer->initCameraParameters();
-    	viewer->setCameraPosition( 500.0, 0.0, 80000.0, 0.0, 0.0, 0.0, 0 );
+    	viewer->setCameraPosition( 5.0, 0.0, 80.0, 0.0, 0.0, 0.0, 0 );
 
         boost::shared_ptr<pcl::visualization::PointCloudColorHandlerGenericField<PointType> > color_handler( new pcl::visualization::PointCloudColorHandlerGenericField<PointType> ("rgb") );
 	//pcl::visualization::PointCloudColorHandlerRGBField<pcl::PointXYZRGB> rgb(vizClouds);

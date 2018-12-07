@@ -2,6 +2,7 @@
 #include <std_msgs/Float64.h>
 #include <geometry_msgs/Pose.h>
 #include <std_msgs/Float64MultiArray.h>
+#include <std_msgs/Float32MultiArray.h>
 #include <tf/transform_broadcaster.h>
 #include <tf2_ros/static_transform_broadcaster.h>
 #include <tf2/LinearMath/Quaternion.h>
@@ -13,6 +14,8 @@
 #include <string.h>
 #include <unistd.h>
 
+#include <fstream>
+
 #include <unistd.h> // UNIX standard function definations 
 #include <fcntl.h>  // File control definations 
 #include <termios.h>// POSIX terminal control definations 
@@ -21,6 +24,7 @@
 #include <asm/ioctls.h>
 
 #define tty_dev "/dev/ttyUSB1"
+float mag_calib=0.0;
 
 char buf[8];
 
@@ -72,10 +76,37 @@ float char2float(std::vector<char> tmp_chr){
 	return data;
 }
 
-/*void get_quaternion_msg(float roll,float pitch,float yaw,geometry_msgs::Quaternion& q){
-	tf::Quaternion quat=tf::createQuaternionFromRPY(roll,pitch,yaw);
-	quaternionTFToMsg(quat,q);
-	}*/
+void js_callback(const  std_msgs::Float32MultiArray& cmd_ctrl){
+	printf("callback\n");
+	//std::cout<<"[0]"<<(int)cmd_ctrl.data[0]<<" [1]"<<(int)cmd_ctrl.data[1]<<" [2]"<<(int)cmd_ctrl.data[2]
+	//	 <<" [3]"<<(int)cmd_ctrl.data[3]<<" [4]"<<(int)cmd_ctrl.data[4]<<" [5]"<<(int)cmd_ctrl.data[5]<<std::endl;
+	if((int)cmd_ctrl.data[11] == 1){
+		if((int)cmd_ctrl.data[3] == 1){
+			mag_calib += 0.1;
+		}else{
+			mag_calib += 1;
+		}
+	}
+	if((int)cmd_ctrl.data[11] == -1){
+		if((int)cmd_ctrl.data[3] == 1){
+			mag_calib -= 0.1;
+		}else{
+			mag_calib -= 1;
+		}
+	}
+	/*if((int)cmd_ctrl.data[0] == 1){
+		if((int)cmd_ctrl.data[3] == 1){
+                        std::ifstream datafile("mag_calib.txt");
+			while(datafile>>mag_calib);
+		}else{
+			std::ofstream fout("mag_calib.txt");
+			fout.setf(std::ios_base::fixed,std::ios_base::floatfield);
+			fout.precision(6);
+			fout<<mag_calib<<std::endl;
+			fout.close();
+		}
+		}*/
+}
 
 int main(int argc, char **argv){
 	//ROS initialize
@@ -84,6 +115,7 @@ int main(int argc, char **argv){
 	//ROS : making publisher
 	//ros::Publisher pub = nh.advertise<geometry_msgs::Quaternion>("imu_pose",1);
 	ros::Publisher pub = nh.advertise<std_msgs::Float64MultiArray>("imu_pose", 1);
+	ros::Subscriber sub0 = nh.subscribe("cmd_ctrl",1,js_callback);
 
 	int fd=config_port();
 	int n=0,j=0,len;
@@ -97,8 +129,6 @@ int main(int argc, char **argv){
 
 	std_msgs::Float64MultiArray imu_pose;
 	imu_pose.data.resize(3);
-  	
-	//geometry_msgs::Quaternion qtn;
 	
 	while(ros::ok()) {
 
@@ -119,31 +149,12 @@ int main(int argc, char **argv){
 		}
 		//printf("\n");
 		if(j>7){
-		        //printf("%lf %lf %lf\n",data[1],data[2],data[3]);
-			//roll_imu=data[1];
-			//pitch_imu=data[2];
-			//yaw_imu=data[3];
-			/*if(data_cnt==0){
-				yaw_imu=data[4];
-				yaw_mag_ref=data[4];
-			}else{
-				yaw_imu=yaw_mag_ref+data[3];
-				}
-			yaw_mag=data[4];
-			//yaw=(yaw_mag + yaw_imu)*0.5;
-			yaw=yaw_mag+7.39;
-
-			//roll_imu += 0.1;
-			//pitch_imu += 0.0;
-			//yaw += 0.0;
-			*/
-
-			imu_pose.data[0]=(data[4]+7.39)*M_PI/180; //yaw
+			imu_pose.data[0]=(data[4]+7.6-90+mag_calib)*M_PI/180; //yaw
 			imu_pose.data[1]=data[2]*M_PI/180; //pitch
 			imu_pose.data[2]=data[1]*M_PI/180; //roll
 			
 			data_cnt++;
-			printf("yaw:%lf pitch:%lf roll:%lf\n",imu_pose.data[0],imu_pose.data[1],imu_pose.data[2]);
+			printf("yaw:%lf pitch:%lf roll:%lf mag_calib:%f\n",imu_pose.data[0],imu_pose.data[1],imu_pose.data[2],mag_calib);
 			j=0;
 			
 			//get_quaternion_msg(-yaw*M_PI/180,-roll_imu*M_PI/180,-pitch_imu*M_PI/180,qtn);
@@ -151,6 +162,7 @@ int main(int argc, char **argv){
 			//std::cout<<qtn<<std::endl;
 			pub.publish(imu_pose);
 		}
+		ros::spinOnce();
 	}
     return 0;
 }

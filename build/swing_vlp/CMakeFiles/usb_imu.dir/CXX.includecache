@@ -15,6 +15,8 @@ geometry_msgs/Pose.h
 -
 std_msgs/Float64MultiArray.h
 -
+std_msgs/Float32MultiArray.h
+-
 tf/transform_broadcaster.h
 -
 tf2_ros/static_transform_broadcaster.h
@@ -32,6 +34,8 @@ stdlib.h
 string.h
 -
 unistd.h
+-
+fstream
 -
 unistd.h
 -
@@ -917,6 +921,24 @@ ros/forwards.h
 /opt/ros/kinetic/include/ros/ros/forwards.h
 
 /opt/ros/kinetic/include/rosconsole/macros_generated.h
+
+/opt/ros/kinetic/include/std_msgs/Float32MultiArray.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+std_msgs/MultiArrayLayout.h
+-
 
 /opt/ros/kinetic/include/std_msgs/Float64.h
 string

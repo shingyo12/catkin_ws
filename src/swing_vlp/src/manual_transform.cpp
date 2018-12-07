@@ -95,8 +95,8 @@ int main(int argc, char** argv){
 	output_cloud->is_dense=true;
 	output_cloud->points.resize(output_cloud->width*output_cloud->height);
 	for(int i=0;i<=middle_cloud->points.size();i++){
-		output_cloud->points[i].x=middle_cloud->points[i].x + x; 
-		output_cloud->points[i].y=middle_cloud->points[i].y + y;
+		output_cloud->points[i].x=middle_cloud->points[i].x - y; 
+		output_cloud->points[i].y=middle_cloud->points[i].y + x;
 		output_cloud->points[i].z=middle_cloud->points[i].z + z;
 	}
 

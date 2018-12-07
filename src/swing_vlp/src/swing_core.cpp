@@ -16,6 +16,7 @@ class TeleopJoy{
     		int rot_bias, flx_bias;
 	        int hrz_rot, vrt_rot, hrz_pd, vrt_pd;
 	        int zoom_in, zoom_out;
+	        int mag_r,mag_l;
     		ros::Publisher  cmd_pub_;
     		ros::Subscriber joy_sub_;
 };
@@ -25,10 +26,12 @@ TeleopJoy::TeleopJoy():
 	        //button
 		rec_start(3),
 		rec_stop(2),
-		ang_boost(7),
+		ang_boost(1),
 		init_pos(0),
 		zoom_in(4),
 		zoom_out(5),
+		mag_r(7),
+		mag_l(6),
 		//axis
 		rot_bias(4),
 		flx_bias(5),
@@ -57,7 +60,8 @@ void TeleopJoy::joyCallback(const sensor_msgs::Joy::ConstPtr& joy){
 	        //[8]->horizontal_parallel_displacement
 	        //[9]->vertical_parallel_displacement
 	        //[10]->zoom_in/out
-	cmd_ctrl.data.resize(11);
+	        //[11]->mag_calib
+	cmd_ctrl.data.resize(12);
 	//button
 	if(joy->buttons[rec_start] > 0){
 		//std::cout<<"rec_start"<<std::endl;
@@ -83,6 +87,14 @@ void TeleopJoy::joyCallback(const sensor_msgs::Joy::ConstPtr& joy){
 		cmd_ctrl.data[3] = 1;
 	}else{
 		cmd_ctrl.data[3] = 0;
+	}
+	if(joy->buttons[mag_r] > 0){
+		//std::cout<<"init_pos"<<std::endl;
+		cmd_ctrl.data[11] = 1;
+	}else if(joy->buttons[mag_l] > 0){
+		cmd_ctrl.data[11] = -1;
+	}else{
+		cmd_ctrl.data[11] = 0;
 	}
 	//axes
 	if(joy->axes[rot_bias] > 0){
