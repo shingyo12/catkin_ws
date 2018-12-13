@@ -575,6 +575,7 @@ set(CMAKE_DEPEND_INFO_FILES
   "swing_vlp/CMakeFiles/sub_pcl_visualizer.dir/DependInfo.cmake"
   "swing_vlp/CMakeFiles/vlp_gpu.dir/DependInfo.cmake"
   "swing_vlp/CMakeFiles/vlp_pcd_imu.dir/DependInfo.cmake"
+  "swing_vlp/CMakeFiles/tri_gps.dir/DependInfo.cmake"
   "swing_vlp/CMakeFiles/usb_gps1_js.dir/DependInfo.cmake"
   "swing_vlp/CMakeFiles/usb_gps0_js.dir/DependInfo.cmake"
   "swing_vlp/CMakeFiles/pose.dir/DependInfo.cmake"

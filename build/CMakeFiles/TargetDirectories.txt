@@ -133,6 +133,7 @@
 /home/nvidia/catkin_ws/build/swing_vlp/CMakeFiles/sub_pcl_visualizer.dir
 /home/nvidia/catkin_ws/build/swing_vlp/CMakeFiles/vlp_gpu.dir
 /home/nvidia/catkin_ws/build/swing_vlp/CMakeFiles/vlp_pcd_imu.dir
+/home/nvidia/catkin_ws/build/swing_vlp/CMakeFiles/tri_gps.dir
 /home/nvidia/catkin_ws/build/swing_vlp/CMakeFiles/usb_gps1_js.dir
 /home/nvidia/catkin_ws/build/swing_vlp/CMakeFiles/usb_gps0_js.dir
 /home/nvidia/catkin_ws/build/swing_vlp/CMakeFiles/pose.dir

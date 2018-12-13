@@ -170,6 +170,7 @@ add_executable(usb_imu  src/usb_imu.cpp)
 add_executable(map_make  src/map_make.cpp)
 add_executable(swing_core  src/swing_core.cpp)
 add_executable(pose  src/pose.cpp)
+add_executable(tri_gps  src/tri_gps.cpp)
 
 set(MIN_CUDA_SRC
   src/gpu/vlp_gpu.cpp
@@ -222,6 +223,7 @@ target_link_libraries(map_make   ${catkin_LIBRARIES})
 target_link_libraries(vlp_gpu   ${catkin_LIBRARIES})
 target_link_libraries(swing_core   ${catkin_LIBRARIES})
 target_link_libraries(pose   ${catkin_LIBRARIES})
+target_link_libraries(tri_gps   ${catkin_LIBRARIES})
 
 #############
 ## Install ##

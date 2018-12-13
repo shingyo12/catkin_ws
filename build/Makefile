@@ -1403,6 +1403,19 @@ vlp_pcd_imu/fast:
 .PHONY : vlp_pcd_imu/fast
 
 #=============================================================================
+# Target rules for targets named tri_gps
+
+# Build rule for target.
+tri_gps: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tri_gps
+.PHONY : tri_gps
+
+# fast build rule for target.
+tri_gps/fast:
+	$(MAKE) -f swing_vlp/CMakeFiles/tri_gps.dir/build.make swing_vlp/CMakeFiles/tri_gps.dir/build
+.PHONY : tri_gps/fast
+
+#=============================================================================
 # Target rules for targets named usb_gps1_js
 
 # Build rule for target.
@@ -2251,6 +2264,7 @@ help:
 	@echo "... sub_pcl_visualizer"
 	@echo "... vlp_gpu"
 	@echo "... vlp_pcd_imu"
+	@echo "... tri_gps"
 	@echo "... usb_gps1_js"
 	@echo "... usb_gps0_js"
 	@echo "... pose"

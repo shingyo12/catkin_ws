@@ -35,7 +35,7 @@ void init_viz(){
 
 	// PCL Visualizer
     	viewer->setBackgroundColor( 0.0, 0.0, 0.0, 0 );
-	viewer->addCoordinateSystem( 5.0  ,"coordinate" );
+	viewer->addCoordinateSystem( 25.0  ,"coordinate" );
     	viewer->initCameraParameters();
     	viewer->setCameraPosition( 25.0, 25.0, 500.0, 0.0, 0.0, 0.0, 0 );
 
@@ -194,7 +194,7 @@ int main(int argc, char **argv){
 		pcl::PassThrough<PointType> pass_z;
 		pass_z.setInputCloud (tmp_filter_cloud);
 		pass_z.setFilterFieldName ("z");
-		pass_z.setFilterLimits (2,200); //2600
+		pass_z.setFilterLimits (1,200); //2600
 		//pass.setFilterLimitsNegative(true);
 		pass_z.filter (filtered_cloud[j]);
 		std::cout<<"point size : "<<input_cloud[j].points.size()<<" -> "<<filtered_cloud[j].points.size()<<std::endl;

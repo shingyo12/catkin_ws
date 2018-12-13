@@ -68,7 +68,7 @@ int main(int argc, char** argv){
 
 	// PCL Visualizer
     	viewer->setBackgroundColor( 0.0, 0.0, 0.0, 0 );
-	viewer->addCoordinateSystem( 5.0  ,"coordinate" );
+	viewer->addCoordinateSystem( 20.0  ,"coordinate" );
     	viewer->initCameraParameters();
     	viewer->setCameraPosition( 5.0, 0.0, 80.0, 0.0, 0.0, 0.0, 0 );
 

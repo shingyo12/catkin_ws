@@ -258,6 +258,21 @@ vlp_pcd_imu/fast:
 .PHONY : vlp_pcd_imu/fast
 
 # Convenience name for target.
+swing_vlp/CMakeFiles/tri_gps.dir/rule:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 swing_vlp/CMakeFiles/tri_gps.dir/rule
+.PHONY : swing_vlp/CMakeFiles/tri_gps.dir/rule
+
+# Convenience name for target.
+tri_gps: swing_vlp/CMakeFiles/tri_gps.dir/rule
+
+.PHONY : tri_gps
+
+# fast build rule for target.
+tri_gps/fast:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/tri_gps.dir/build.make swing_vlp/CMakeFiles/tri_gps.dir/build
+.PHONY : tri_gps/fast
+
+# Convenience name for target.
 swing_vlp/CMakeFiles/usb_gps1_js.dir/rule:
 	cd /home/nvidia/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 swing_vlp/CMakeFiles/usb_gps1_js.dir/rule
 .PHONY : swing_vlp/CMakeFiles/usb_gps1_js.dir/rule
@@ -1043,6 +1058,33 @@ src/swing_core.cpp.s:
 	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/swing_core.dir/build.make swing_vlp/CMakeFiles/swing_core.dir/src/swing_core.cpp.s
 .PHONY : src/swing_core.cpp.s
 
+src/tri_gps.o: src/tri_gps.cpp.o
+
+.PHONY : src/tri_gps.o
+
+# target to build an object file
+src/tri_gps.cpp.o:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/tri_gps.dir/build.make swing_vlp/CMakeFiles/tri_gps.dir/src/tri_gps.cpp.o
+.PHONY : src/tri_gps.cpp.o
+
+src/tri_gps.i: src/tri_gps.cpp.i
+
+.PHONY : src/tri_gps.i
+
+# target to preprocess a source file
+src/tri_gps.cpp.i:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/tri_gps.dir/build.make swing_vlp/CMakeFiles/tri_gps.dir/src/tri_gps.cpp.i
+.PHONY : src/tri_gps.cpp.i
+
+src/tri_gps.s: src/tri_gps.cpp.s
+
+.PHONY : src/tri_gps.s
+
+# target to generate assembly for a file
+src/tri_gps.cpp.s:
+	cd /home/nvidia/catkin_ws/build && $(MAKE) -f swing_vlp/CMakeFiles/tri_gps.dir/build.make swing_vlp/CMakeFiles/tri_gps.dir/src/tri_gps.cpp.s
+.PHONY : src/tri_gps.cpp.s
+
 src/usb_cycle.o: src/usb_cycle.cpp.o
 
 .PHONY : src/usb_cycle.o
@@ -1276,6 +1318,7 @@ help:
 	@echo "... sub_pcl_visualizer"
 	@echo "... vlp_gpu"
 	@echo "... vlp_pcd_imu"
+	@echo "... tri_gps"
 	@echo "... usb_gps1_js"
 	@echo "... usb_gps0_js"
 	@echo "... pose"
@@ -1352,6 +1395,9 @@ help:
 	@echo "... src/swing_core.o"
 	@echo "... src/swing_core.i"
 	@echo "... src/swing_core.s"
+	@echo "... src/tri_gps.o"
+	@echo "... src/tri_gps.i"
+	@echo "... src/tri_gps.s"
 	@echo "... src/usb_cycle.o"
 	@echo "... src/usb_cycle.i"
 	@echo "... src/usb_cycle.s"
